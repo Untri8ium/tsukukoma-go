@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowLeft, Navigation, Clock, MapPin, X, ChevronLeft, ChevronRight, Info, Umbrella } from "lucide-react"
+import { ArrowLeft, Navigation, Clock, MessageCircleWarning, MapPin, X, ChevronLeft, ChevronRight, Info, Umbrella } from "lucide-react"
 import type { Location } from "@/app/page"
 
 interface RouteStep {
@@ -111,7 +111,7 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Finding your route...</p>
+          <p className="text-muted-foreground">探索中…</p>
         </div>
       </div>
     )
@@ -167,6 +167,12 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
               </span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
+              <MessageCircleWarning className="h-4 w-4" />
+              <span className="text-sm">
+                外観・入口は実際と異なる場合があります
+              </span>
+              </div>
+            <div className="flex items-center gap-2 text-muted-foreground">
               <Info className="h-4 w-4" />
               <span className="text-sm">
                 画像をタップすると拡大表示します
@@ -200,7 +206,7 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
                     className="w-20 h-20 bg-card border-2 border-primary rounded-lg flex items-center justify-center overflow-hidden hover:border-primary/80 transition-colors"
                   >
                     <img
-                      src={step.image || "/placeholder.svg"}
+                      src={"https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" + step.image || "/placeholder.svg"}
                       alt={step.title}
                       className="w-full h-full object-cover"
                     />
@@ -246,23 +252,9 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
         </div>
 
         {/* Arrival Message */}
-        <div className="p-4 flex gap-4 bg-accent text-accent-foreground rounded-lg">
-          <div className="flex-shrink-0">
-                  <button
-                    onClick={() => openZoomModal(routeSteps.length - 1)}
-                    className="w-20 h-20 bg-card border-2 border-primary rounded-lg flex items-center justify-center overflow-hidden hover:border-primary/80 transition-colors"
-                  >
-                    <img
-                      src={routeSteps[routeSteps.length - 1].image || "/placeholder.svg"}
-                      alt={routeSteps[routeSteps.length - 1].title}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                </div>
-          <div className="flex flex-col justify-center">
-            <div className="font-semibold text-lg">{to.name}</div>
-            {/* <div className="text-sm opacity-90 mt-1">Welcome to {to.name}</div> */}
-          </div>
+        <div className="mx-4 p-4 bg-accent text-accent-foreground rounded-lg text-center">
+          <div className="text-lg font-semibold">到着</div>
+          <div className="text-sm opacity-90 mt-1">{to.name}</div>
         </div>
       </div>
 
@@ -286,9 +278,9 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
               {/* Large Image */}
               <div className="aspect-video bg-muted">
                 <img
-                  src={currentStep.image || "/placeholder.svg"}
+                  src={"https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" + currentStep.image || "/placeholder.svg"}
                   alt={currentStep.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-[70vh] object-cover"
                 />
               </div>
 
@@ -342,10 +334,10 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
                 </button>)}
 
               <span className="text-sm text-muted-foreground">
-                {currentZoomIndex + 1} / {routeSteps.length}
+                {currentZoomIndex + 1} / {routeSteps.length - 1}
               </span>
 
-              {currentZoomIndex < routeSteps.length - 1 ? (
+              {currentZoomIndex < routeSteps.length - 2 ? (
                 <button
                   onClick={goToNext}
                   className="flex items-center gap-2 px-4 py-2 bg-accent text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
@@ -353,7 +345,9 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
                   次へ
                   <ChevronRight className="h-4 w-4" />
                 </button>
-              ) : (
+              )
+              :
+              (
                 <button
                   onClick={() => {}}
                   className="flex items-center gap-2 px-4 py-2 invisible transition-colors"
@@ -361,7 +355,8 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
                   <ChevronRight className="h-4 w-4" />
                   次へ
                 </button>
-              )}
+              )
+              }
             </div>
           </div>
         </div>
