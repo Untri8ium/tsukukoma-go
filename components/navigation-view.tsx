@@ -38,8 +38,8 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
         setError(null)
 
         const params = new URLSearchParams({
-          departure: from.id,
-          destination: to.id,
+          departure: from.locid,
+          destination: to.locid,
           rainy: rainyMode.toString(),
         })
 
@@ -65,7 +65,7 @@ export function NavigationView({ from, to, onBack, rainyMode = false }: Navigati
     }
 
     fetchRoute()
-  }, [from.id, to.id, rainyMode])
+  }, [from.locid, to.locid, rainyMode])
 
   useEffect(() => {
     const handleScroll = () => {

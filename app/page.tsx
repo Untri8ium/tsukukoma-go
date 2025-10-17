@@ -11,6 +11,7 @@ import { set } from "date-fns"
 
 export type Location = {
   id: string
+  locid: string
   name: string
   category: string
   organizer: string
@@ -103,8 +104,8 @@ export default function HomePage() {
     const destLoc = newDestination !== undefined ? newDestination : destination
     const rainy = newRainyMode !== undefined ? newRainyMode : rainyMode
 
-    if (currentLoc) params.set("dep", currentLoc.id)
-    if (destLoc) params.set("dest", destLoc.id)
+    if (currentLoc) params.set("dep", currentLoc.locid)
+    if (destLoc) params.set("dest", destLoc.locid)
     if (rainy) params.set("rainy", "true")
     if (navigate) params.set("nav", "true")
 
@@ -149,15 +150,15 @@ export default function HomePage() {
 
     let actualDestination = destination
     
-    if (["m", "f"].includes(destination.id)){
+    if (["m", "f"].includes(destination.locid)){
     const getCost = async (target: Location) => {
       try {
         setLoading(true)
         setError(null)
 
         const params = new URLSearchParams({
-          departure: currentLocation.id,
-          destination: target.id,
+          departure: currentLocation.locid,
+          destination: target.locid,
           rainy: rainyMode.toString(),
         })
 
@@ -177,7 +178,7 @@ export default function HomePage() {
       }
     }
 
-    const candidateBathrooms = destination.id === "m" ? maleBathrooms : femaleBathrooms;
+    const candidateBathrooms = destination.locid === "m" ? maleBathrooms : femaleBathrooms;
     let best = { closest: candidateBathrooms[0], minCost: Infinity };
 
     for (const bathroom of candidateBathrooms) {
@@ -207,32 +208,34 @@ export default function HomePage() {
 
         <div className="space-y-4">
           <LocationSelector
-            label="From"
-            placeholder="Select current location"
+            label="どこから"
+            placeholder="出発地点を選択"
             value={currentLocation}
+            departure={true}
             onChange={handleCurrentLocationChange}
           />
 
           <LocationSelector
-            label="To"
-            placeholder="Select destination"
+            label="どこまで"
+            placeholder="目的地を選択"
             value={destination}
+            departure={false}
             onChange={handleDestinationChange}
           />
         </div>
 
-        <button
-          onClick={handleNavigate}
-          disabled={!currentLocation || !destination || currentLocation.id === destination.id}
-          className="w-full bg-primary text-primary-foreground font-bold text-xl py-4 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
-        >
-          GO!
-        </button>
+    <button
+      onClick={handleNavigate}
+      disabled={!currentLocation || !destination || currentLocation.locid === destination.locid}
+      className="w-full bg-primary text-primary-foreground font-bold italic text-7xl px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors overflow-visible"
+    >
+      <span className="-my-3 -ml-2 text-white dark:text-black block">GO!</span>
+    </button>
 
         <div className="flex items-center justify-center gap-3 pt-2">
           <label className="flex items-center gap-3 cursor-pointer">
-            <Switch checked={rainyMode} onCheckedChange={handleRainyModeChange} />
-            <span className="text-sm font-medium">Rainy mode</span>
+            <Switch checked={rainyMode} onCheckedChange={handleRainyModeChange} className="data-[state=unchecked]:bg-neutral-300 dark:data-[state=unchecked]:bg-neutral-700"/>
+            <span className="text-sm font-medium">雨天モード (屋内経路優先)</span>
           </label>
         </div>
       </div>
