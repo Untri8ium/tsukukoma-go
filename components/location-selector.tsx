@@ -931,7 +931,7 @@ useEffect(() => {
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-border rounded-lg shadow-lg z-50 max-h-[45vh] overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-border rounded-lg shadow-lg z-50">
           <div className="p-3 border-b border-border">
             <input
               ref={inputRef}
@@ -945,7 +945,7 @@ useEffect(() => {
             />
           </div>
 
-          <div className="max-h-[45vh] pb-6 overflow-y-auto top-full">
+          <div className="max-h-[45vh] overflow-y-auto top-full">
             {filteredLocations.length > 0 ? (
               filteredLocations.map((location) => (
                 <div
