@@ -12,7 +12,7 @@ const LOCATIONS: Location[] = [
    "category": "自動選択",
    "organizer": "",
    "position": "RED館・BLUE館・ORANGE館に限る",
-   "keywords": []
+   "keywords": ["もよりのだんしといれ"]
  }, 
  {
   "id": "f",
@@ -21,7 +21,7 @@ const LOCATIONS: Location[] = [
    "category": "自動選択",
    "organizer": "",
    "position": "RED館・BLUE館・ORANGE館に限る",
-   "keywords": []
+   "keywords": ["もよりのじょしといれ"]
  },
  {
    "id": "1",
@@ -30,7 +30,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外 (中庭)",
-   "keywords": []
+   "keywords": ["そうごうあんないじょせいてんじ", "インフォメーション"]
  },
  {
    "id": "2",
@@ -39,7 +39,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "レッド館東付近1F",
-   "keywords": []
+   "keywords": ["そうごうあんないじょうてんじ", "インフォメーション"]
  },
  {
    "id": "3",
@@ -48,7 +48,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["ほけんしつ"]
  },
  {
    "id": "4",
@@ -57,70 +57,88 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["きゅうけいじょ"]
  },
  {
    "id": "5",
    "locid": "154",
-   "name": "トニカクエンニチ",
+   "name": "縁日班",
    "category": "高3",
    "organizer": "高3縁日",
    "position": "屋外 (ピロティ)",
-   "keywords": []
+   "keywords": ["えんにちはん", "トニカクエンニチ", "とにかくえんにち", "縁日班", "アトラクション", "駄菓子", "ポップコーン", "中古市", "がらくた", "ガラクタ", "やぐら", "シューティング", "音ゲー", "エアホッケー", "格ゲー", "カードゲーム", "景品交換所", "じゃんけんまん", "ジャンケンマン", "じゃんけんマン", "くじ", "福袋"]
  },
  {
    "id": "6",
    "locid": "155",
-   "name": "チケット売場",
+   "name": "チケットブース",
    "category": "高3",
    "organizer": "高3縁日・食品",
    "position": "屋外 (ピロティ)",
-   "keywords": []
+   "keywords": ["ちけっとぶーす", "縁日班", "食品班", "チケット販売所"]
  },
  {
    "id": "7",
    "locid": "131",
-   "name": "大喝祭",
+   "name": "ステージ班",
    "category": "高3",
    "organizer": "高3ステージ",
    "position": "屋外 (中庭)",
-   "keywords": []
+   "keywords": ["すてーじはん", "大喝祭", "だいかっさい", "学年対抗戦", "vs教員", "バリ体張り", "部活対抗戦", "筑駒生クイズ何問目？", "コロシアム", "esports", "e-sports", "笑わしあむ", "演駒", "筑駒生格付けチェック", "TSUKU ROCK", "つくロック", "ツクロック", "ややミスター筑駒", "Mr.筑駒", "ミスター筑駒", "バカ討論", "こころしあむ", "筑駒vs開成", "DANCE FES", "ダンスフェス", "My Sweet 筑駒", "マイスイート筑駒", "マイスウィート筑駒", "ミス筑駒", "PERFORMANCE FINAL", "STAGE FINAL", "パフォーマンスファイナル", "ステージファイナル"]
  },
  {
    "id": "8",
    "locid": "106",
-   "name": "Upside Down",
+   "name": "コント班 (会場)",
    "category": "高3",
-   "organizer": "高3コント班",
+   "organizer": "高3コント",
    "position": "7号館3F",
-   "keywords": []
+   "keywords": ["こんとはんかいじょう", "Upside Down", "あっぷさいどだうん", "アップサイドダウン", "漫才", "アトラス", "マッターホルン", "ロッキー", "キリマンジャロ", "エベレスト"]
+ },
+  {
+   "id": "89",
+   "locid": "167",
+   "name": "コント班 (整理券あり集合場所)",
+   "category": "高3",
+   "organizer": "高3コント",
+   "position": "屋外",
+   "keywords": ["こんとはんせいりけんありしゅうごうばしょ", "Upside Down", "あっぷさいどだうん", "アップサイドダウン", "漫才", "アトラス", "マッターホルン", "ロッキー", "キリマンジャロ", "エベレスト"]
+ },
+  {
+   "id": "90",
+   "locid": "168",
+   "name": "コント班 (整理券なし集合場所)",
+   "category": "高3",
+   "organizer": "高3コント",
+   "position": "屋外",
+   "keywords": ["こんとはんせいりけんなししゅうごうばしょ", "Upside Down", "あっぷさいどだうん", "アップサイドダウン", "漫才", "アトラス", "マッターホルン", "ロッキー", "キリマンジャロ", "エベレスト"]
  },
  {
    "id": "9",
    "locid": "162",
-   "name": "つむぎ",
+   "name": "食品班 (朝日の広場)",
    "category": "高3",
    "organizer": "高3食品",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["しょくひんはんあさひのひろば", "つむぎ", "つくこまぜそば", "筑駒咖哩飯", "筑駒カレー飯", "野菜たっぷりミネストローネ", "いもだんご", "芋団子", "タピオカミルクティー"]
  },
  {
    "id": "10",
    "locid": "163",
-   "name": "",
+   "name": "食品班 (中庭)",
    "category": "高3",
    "organizer": "高3食品",
-   "position": "屋外",
-   "keywords": []
+   "position": "屋外 (中庭)",
+   "keywords": ["しょくひんはんなかにわ", "タピオカミルクティー"]
  },
  {
    "id": "11",
    "locid": "108",
-   "name": "ひねもす",
+   "name": "喫茶班",
    "category": "高3",
    "organizer": "高3喫茶",
    "position": "50周年記念会館",
-   "keywords": []
+   "keywords": ["きっさはん", "ひねもす", "終日", "カフェ", "スイーツ", "ドリンク", "クロックムッシュ", "小倉トースト", "コンソメスープ", "ベリーパフェ", "抹茶パフェ", "チョコクロワッサン", "ドリップコーヒー", "アイスコーヒー", "紅茶", "クラフトコーラ", "リンゴジュース"]
  },
  {
    "id": "12",
@@ -129,7 +147,7 @@ const LOCATIONS: Location[] = [
    "category": "高3",
    "organizer": "高3お土産",
    "position": "屋外 (中庭)",
-   "keywords": []
+   "keywords": ["おみやげなかにわうりば", "筑駒カレー", "クッキー", "トートバッグ", "カレンダー", "フェイスタオル3種", "クリアファイル3種", "ステッカー3種"]
  },
  {
    "id": "13",
@@ -138,7 +156,7 @@ const LOCATIONS: Location[] = [
    "category": "高3",
    "organizer": "高3お土産",
    "position": "50周年記念会館",
-   "keywords": []
+   "keywords": ["おみやげ50しゅうねんうりば", "筑駒カレー", "クッキー", "トートバッグ", "カレンダー", "フェイスタオル3種", "クリアファイル3種", "ステッカー3種"]
  },
  {
    "id": "14",
@@ -147,7 +165,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "1-A HR",
    "position": "オレンジ館3F",
-   "keywords": []
+   "keywords": ["1A", "1年A組", "つくこまだいかいぼう", "ジオラマ"]
  },
  {
    "id": "15",
@@ -156,7 +174,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "1-B HR",
    "position": "オレンジ館3F",
-   "keywords": []
+   "keywords": ["1B", "1年B組", "りっぽうたいのきせき", "ルービックキューブ"]
  },
  {
    "id": "16",
@@ -165,7 +183,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "1-C HR",
    "position": "オレンジ館3F",
-   "keywords": []
+   "keywords": ["1C", "1年C組", "ぴたごらさいえんす", "ピタゴラサイエンス", "ピタゴラ装置", "ピタゴラスイッチ"]
  },
  {
    "id": "17",
@@ -174,7 +192,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "2-A HR",
    "position": "オレンジ館2F",
-   "keywords": []
+   "keywords": ["2A", "2年A組", "さく。", "錯覚"]
  },
  {
    "id": "18",
@@ -183,7 +201,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "2-B HR",
    "position": "オレンジ館2F",
-   "keywords": []
+   "keywords": ["2B", "2年B組", "ふりーだむおんぼーず ばんじょうのじゆう", "ボードゲーム"]
  },
  {
    "id": "19",
@@ -192,7 +210,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "2-C HR",
    "position": "オレンジ館2F",
-   "keywords": []
+   "keywords": ["2C", "2年C組", "のろいのおうぼ", "のろいのぴらみっど", "のろいのピラミッド", "謎解き脱出ゲーム"]
  },
  {
    "id": "20",
@@ -201,7 +219,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "3-A HR",
    "position": "オレンジ館1F",
-   "keywords": []
+   "keywords": ["3A", "3年A組", "#ろっくどふぇすてぃばる", "#ロックドフェスティバル", "脱出ゲーム"]
  },
  {
    "id": "21",
@@ -210,7 +228,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "3-B HR",
    "position": "オレンジ館1F",
-   "keywords": []
+   "keywords": ["3B", "3年B組", "さんぷるなんばーえっくす", "サンプルナンバーエックス", "謎解き"]
  },
  {
    "id": "22",
@@ -219,7 +237,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "3-C HR",
    "position": "オレンジ館1F",
-   "keywords": []
+   "keywords": ["3C", "3年C組", "えどべがす", "丁半"]
  },
  {
    "id": "23",
@@ -228,7 +246,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "中高将棋部",
    "position": "ブルー館3F",
-   "keywords": []
+   "keywords": ["ちゅうこうしょうぎぶ"]
  },
  {
    "id": "24",
@@ -237,7 +255,7 @@ const LOCATIONS: Location[] = [
    "category": "演劇",
    "organizer": "中高演劇部",
    "position": "ブルー館3F",
-   "keywords": []
+   "keywords": ["ぽけっとからさめがふきだす"]
  },
  {
    "id": "25",
@@ -246,7 +264,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "高2展示",
    "position": "ブルー館3F",
-   "keywords": []
+   "keywords": ["2-1", "2-2", "2-3", "2-4", "2年1組", "2年2組", "2年3組", "2年4組", "かげろうゆうだちぬるいなつかぜ", "夏祭り"]
  },
  {
    "id": "26",
@@ -255,7 +273,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "高2謎解き",
    "position": "ブルー館2F",
-   "keywords": []
+   "keywords": ["2-1", "2-2", "2-3", "2-4", "2年1組", "2年2組", "2年3組", "2年4組", "あまつとき", "あまつどき", "てんつとき", "てんつどき", "あまつこく", "てんつこく", "謎解き"]
  },
  {
    "id": "27",
@@ -264,7 +282,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "高2カジノ",
    "position": "ブルー館2F",
-   "keywords": []
+   "keywords": ["2-1", "2-2", "2-3", "2-4", "2年1組", "2年2組", "2年3組", "2年4組", "てんごくだろうがかねはいる"]
  },
  {
    "id": "28",
@@ -273,7 +291,7 @@ const LOCATIONS: Location[] = [
    "category": "映画",
    "organizer": "高2映画",
    "position": "ブルー館3F",
-   "keywords": []
+   "keywords": ["2-1", "2-2", "2-3", "2-4", "2年1組", "2年2組", "2年3組", "2年4組", "おばかやしきざむーびー", "ホラー", "コメディ"]
  },
  {
    "id": "29",
@@ -282,7 +300,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "駒場棋院",
    "position": "ブルー館2F",
-   "keywords": []
+   "keywords": ["おきごははじだがやくにたつ", "囲碁"]
  },
  {
    "id": "30",
@@ -291,7 +309,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "1-1 HR",
    "position": "ブルー館2F",
-   "keywords": []
+   "keywords": ["1年1組"]
  },
  {
    "id": "31",
@@ -300,7 +318,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "1-2 HR",
    "position": "ブルー館1F",
-   "keywords": []
+   "keywords": ["1年2組", "じごくのさたもかけしだい", "カジノ"]
  },
  {
    "id": "32",
@@ -309,7 +327,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "1-3 HR",
    "position": "ブルー館1F",
-   "keywords": []
+   "keywords": ["1年3組", "しのびのしれん", "忍びの試練"]
  },
  {
    "id": "33",
@@ -318,7 +336,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "1-4 HR",
    "position": "ブルー館1F",
-   "keywords": []
+   "keywords": ["1年4組", "おーだーれすとれーしょんいんすてぃちゅーと", "オーダーレストレーションインスティチュート", "ORI"]
  },
  {
    "id": "34",
@@ -327,7 +345,7 @@ const LOCATIONS: Location[] = [
    "category": "パフォーマンス",
    "organizer": "アンサンブル同好会",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["るくすえてるな", "ルクスエテルナ", "音楽室"]
  },
  {
    "id": "35",
@@ -336,25 +354,25 @@ const LOCATIONS: Location[] = [
    "category": "パフォーマンス",
    "organizer": "ピアノ同好会",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["きらめき", "こう", "あき", "かがやき", "音楽室"]
  },
  {
    "id": "36",
    "locid": "103",
-   "name": "ボドゲカフェ (場所1)",
+   "name": "マッドマートからの脱出",
    "category": "体験",
    "organizer": "中高アナログゲーム同好会",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["まっどまーとからのだっしゅつ", "物理講義室"]
  },
  {
    "id": "37",
    "locid": "166",
-   "name": "ボドゲカフェ (場所2)",
+   "name": "ボドゲカフェ",
    "category": "体験",
    "organizer": "中高アナログゲーム同好会",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["ぼどげかふぇ", "ボードゲームカフェ", "TRPG", "特別活動室", "特活"]
  },
  {
    "id": "38",
@@ -363,7 +381,7 @@ const LOCATIONS: Location[] = [
    "category": "展示 (特別)",
    "organizer": "",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["すうがくかてんじ", "76期テーマ学習", "特別活動室", "特活"]
  },
  {
    "id": "39",
@@ -372,7 +390,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "折り紙研究会",
    "position": "レッド館3F",
-   "keywords": []
+   "keywords": ["おりおん", "折り研", "おりけん", "物理実験室"]
  },
  {
    "id": "40",
@@ -381,7 +399,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "筑駒総合美術研究会",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["きかくてんじきてん", "CG研究会", "筑駒総美研", "美術室奥"]
  },
  {
    "id": "41",
@@ -390,7 +408,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "鉄道研究部",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["ひかりとかげのしんかんせん", "鉄研", "てっけん", "ジオラマ", "地理室"]
  },
  {
    "id": "42",
@@ -399,7 +417,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "鉄道研究部",
    "position": "渡り廊下M3F",
-   "keywords": []
+   "keywords": ["ひかりとかげのしんかんせん", "鉄研", "てっけん", "ジオラマ", "コモンスペース", "コモスペ"]
  },
  {
    "id": "43",
@@ -408,7 +426,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "地域振興研究会",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["いねみのるこはんにいきる", "振興研", "立体模型", "地理室"]
  },
  {
    "id": "44",
@@ -417,7 +435,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "中高文藝部",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["びゃんじろ", "中高文芸部", "地学室"]
  },
  {
    "id": "45",
@@ -426,7 +444,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "中高農芸部",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["のうあるぶかつはつめをかくす", "畑ツアー", "地学室"]
  },
  {
    "id": "46",
@@ -435,7 +453,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "中高クイズ研究会",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["クイ研", "くいけん", "早押しクイズ", "生物講義室"]
  },
  {
    "id": "47",
@@ -444,7 +462,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "中高生物部",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["いきものわーるど２０２５", "生き物ワールド2025", "生物実験室"]
  },
  {
    "id": "48",
@@ -453,7 +471,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "パーソナルコンピューター研究部",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["ふらっくす", "フラックス", "パ研", "ぱけん", "パソ研", "ぱそけん", "PAKEN", "技術室奥"]
  },
  {
    "id": "49",
@@ -462,7 +480,7 @@ const LOCATIONS: Location[] = [
    "category": "展示",
    "organizer": "パズル部",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["ぱずるとりで", "パズ研", "化学講義室"]
  },
  {
    "id": "50",
@@ -471,7 +489,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "数学科学研究部",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["すうけん2025", "すうけん２０２５", "化学講義室"]
  },
  {
    "id": "51",
@@ -480,7 +498,7 @@ const LOCATIONS: Location[] = [
    "category": "体験",
    "organizer": "中高科学部",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["こにかるけみかる", "コニカルケミカル", "中高化学部", "実験ショー", "化学実験室"]
  },
  {
    "id": "52",
@@ -489,7 +507,7 @@ const LOCATIONS: Location[] = [
    "category": "展示 (特別)",
    "organizer": "美術科",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["びじゅつかてんじ", "美術室"]
  },
  {
    "id": "53",
@@ -498,7 +516,7 @@ const LOCATIONS: Location[] = [
    "category": "パフォーマンス",
    "organizer": "中高音楽部",
    "position": "体育館",
-   "keywords": []
+   "keywords": ["ういんどふぇすた2025はーもにあ", "ウインドフェスタ2025ハーモニア", "うぃんどふぇすた２０２５はーもにあ", "ウインドフェスタ２０２５ハーモニア", "吹奏楽部"]
  },
  {
    "id": "54",
@@ -507,7 +525,7 @@ const LOCATIONS: Location[] = [
    "category": "パフォーマンス",
    "organizer": "筑駒Jugglers",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["ふりーふぉーる", "フリーフォール", "筑駒ジャグラーズ", "ジャグリング", "パフォーマンスストリート", "岩石園"]
  },
  {
    "id": "55",
@@ -516,7 +534,7 @@ const LOCATIONS: Location[] = [
    "category": "展示 (特別)",
    "organizer": "",
    "position": "6号館",
-   "keywords": []
+   "keywords": ["しょどうかてんじ", "書道室"]
  },
  {
    "id": "56",
@@ -525,7 +543,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["いりぐち", "ゲート", "正門"]
  },
  {
    "id": "57",
@@ -534,7 +552,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["でぐち", "ゲート", "正門"]
  },
  {
    "id": "58",
@@ -543,7 +561,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["うけつけ", "パンフレット"]
  },
  {
    "id": "59",
@@ -552,7 +570,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "1号館1F",
-   "keywords": []
+   "keywords": ["じむしつ", "事務所"]
  },
  {
    "id": "60",
@@ -561,7 +579,7 @@ const LOCATIONS: Location[] = [
    "category": "その他",
    "organizer": "",
    "position": "屋外",
-   "keywords": []
+   "keywords": ["ふぉとすぽっと", "写真スポット", "記念写真"]
  },
  {
    "id": "61",
@@ -570,7 +588,7 @@ const LOCATIONS: Location[] = [
    "category": "男子トイレ",
    "organizer": "",
    "position": "オレンジ館2-3F踊り場",
-   "keywords": []
+   "keywords": ["だんしといれ"]
  },
  {
    "id": "62",
@@ -579,7 +597,7 @@ const LOCATIONS: Location[] = [
    "category": "男子トイレ",
    "organizer": "",
    "position": "オレンジ館2-3F踊り場",
-   "keywords": []
+   "keywords": ["だんしといれ"]
  },
  {
    "id": "63",
@@ -588,7 +606,7 @@ const LOCATIONS: Location[] = [
    "category": "男子トイレ",
    "organizer": "",
    "position": "ブルー館2-3F踊り場",
-   "keywords": []
+   "keywords": ["だんしといれ"]
  },
  {
    "id": "64",
@@ -597,7 +615,7 @@ const LOCATIONS: Location[] = [
    "category": "男子トイレ",
    "organizer": "",
    "position": "ブルー館2-3F踊り場",
-   "keywords": []
+   "keywords": ["だんしといれ"]
  },
  {
    "id": "65",
@@ -606,7 +624,7 @@ const LOCATIONS: Location[] = [
    "category": "女子トイレ",
    "organizer": "",
    "position": "オレンジ館1-2F踊り場",
-   "keywords": []
+   "keywords": ["じょしといれ"]
  },
  {
    "id": "66",
@@ -615,7 +633,7 @@ const LOCATIONS: Location[] = [
    "category": "女子トイレ",
    "organizer": "",
    "position": "オレンジ館1-2F踊り場",
-   "keywords": []
+   "keywords": ["じょしといれ"]
  },
  {
    "id": "67",
@@ -624,7 +642,7 @@ const LOCATIONS: Location[] = [
    "category": "女子トイレ",
    "organizer": "",
    "position": "ブルー館1-2F踊り場",
-   "keywords": []
+   "keywords": ["じょしといれ"]
  },
  {
    "id": "68",
@@ -633,7 +651,7 @@ const LOCATIONS: Location[] = [
    "category": "女子トイレ",
    "organizer": "",
    "position": "ブルー館1-2F踊り場",
-   "keywords": []
+   "keywords": ["じょしといれ"]
  },
  {
    "id": "69",
@@ -642,7 +660,7 @@ const LOCATIONS: Location[] = [
    "category": "女子トイレ",
    "organizer": "",
    "position": "レッド館2F",
-   "keywords": []
+   "keywords": ["じょしといれ"]
  },
  {
    "id": "70",
@@ -651,7 +669,7 @@ const LOCATIONS: Location[] = [
    "category": "男女トイレ",
    "organizer": "",
    "position": "レッド館1F",
-   "keywords": []
+   "keywords": ["だんじょといれ"]
  },
  {
    "id": "71",
@@ -849,7 +867,7 @@ useEffect(() => {
     location.organizer.toLowerCase().includes(term) ||
     location.position.toLowerCase().includes(term) ||
     location.keywords.some((keyword) => keyword.toLowerCase().includes(term))) &&
-    (departure ? !["m", "f"].includes(location.locid) : true)
+    (departure ? !["m", "f"].includes(location.locid) : !["106"].includes(location.locid))
   )
   .map((location, index) => {
     let score = 0;
@@ -898,10 +916,18 @@ useEffect(() => {
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      "男子トイレ": "bg-blue-100 text-blue-800",
-      "女子トイレ": "bg-pink-100 text-pink-800",
-      "男女トイレ": "bg-purple-100 text-purple-800",
-      "その他": "bg-green-100 text-green-800"
+      "高3": "bg-fuchsia-100 text-fuchsia-900",
+      "展示": "bg-green-100 text-green-900",
+      "体験": "bg-red-100 text-red-900",
+      "映画": "bg-blue-100 text-blue-900",
+      "演劇": "bg-sky-100 text-sky-900",
+      "パフォーマンス": "bg-amber-100 text-amber-900",
+      "展示 (特別)": "bg-neutral-100 text-neutral-900",
+
+      "男子トイレ": "bg-blue-100 text-blue-900",
+      "女子トイレ": "bg-pink-100 text-pink-900",
+      "男女トイレ": "bg-purple-100 text-purple-900",
+      "その他": "bg-neutral-100 text-neutral-900"
     }
     return colors[category as keyof typeof colors] || "bg-gray-100 text-gray-800"
   }
@@ -918,7 +944,7 @@ useEffect(() => {
           <MapPin className="h-5 w-5 text-muted-foreground" />
           {value ? (
             <div>
-              <div className="font-medium">{value.name}</div>
+              <div className="font-medium text-lg">{value.name}</div>
               <div className="text-sm text-muted-foreground">
                 {value.position + (value.organizer ? `, ${value.organizer}` : "")}
               </div>
@@ -945,7 +971,7 @@ useEffect(() => {
             />
           </div>
 
-          <div className="max-h-[45vh] overflow-y-auto top-full">
+          <div className="max-h-[38vh] overflow-y-auto top-full">
             {filteredLocations.length > 0 ? (
               filteredLocations.map((location) => (
                 <div

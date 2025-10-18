@@ -1,211 +1,234 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { LocationSelector } from "@/components/location-selector"
-import { NavigationView } from "@/components/navigation-view"
-import { Switch } from "@/components/ui/switch"
-import { maleBathrooms, femaleBathrooms } from "@/components/location-selector"
-import { get } from "http"
-import { set } from "date-fns"
+import { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { LocationSelector } from "@/components/location-selector";
+import { NavigationView } from "@/components/navigation-view";
+import { Switch } from "@/components/ui/switch";
+import { maleBathrooms, femaleBathrooms } from "@/components/location-selector";
+import { get } from "http";
+import { set } from "date-fns";
+import Logo from "@/components/logo";
+import Footer from "@/components/footer";
 
 export type Location = {
-  id: string
-  locid: string
-  name: string
-  category: string
-  organizer: string
-  position: string
-  keywords: string[]
-}
+  id: string;
+  locid: string;
+  name: string;
+  category: string;
+  organizer: string;
+  position: string;
+  keywords: string[];
+};
 
 export default function HomePage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [currentLocation, setCurrentLocation] = useState<Location | null>(null)
-  const [destination, setDestination] = useState<Location | null>(null)
-  const [showNavigation, setShowNavigation] = useState(false)
-  const [rainyMode, setRainyMode] = useState(false)
+  const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
+  const [destination, setDestination] = useState<Location | null>(null);
+  const [showNavigation, setShowNavigation] = useState(false);
+  const [rainyMode, setRainyMode] = useState(false);
 
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [trueDestination, setTrueDestination] = useState<Location | null>(null)
+  const [trueDestination, setTrueDestination] = useState<Location | null>(null);
 
-  const isUpdatingURL = useRef(false)
+  const isUpdatingURL = useRef(false);
 
   useEffect(() => {
     if (isUpdatingURL.current) {
-      isUpdatingURL.current = false
-      return
+      isUpdatingURL.current = false;
+      return;
     }
 
-    const depId = searchParams.get("dep")
-    const destId = searchParams.get("dest")
-    const rainy = searchParams.get("rainy") === "true"
-    const nav = searchParams.get("nav") === "true"
+    const depId = searchParams.get("dep");
+    const destId = searchParams.get("dest");
+    const rainy = searchParams.get("rainy") === "true";
+    const nav = searchParams.get("nav") === "true";
 
     // If nav=true but missing either dep or dest, redirect to home
     if (nav && (!depId || !destId)) {
-      router.replace("/")
-      return
+      router.replace("/");
+      return;
     }
 
     if (searchParams.has("rainy")) {
-      setRainyMode(rainy)
+      setRainyMode(rainy);
     }
 
     // Load locations from URL if available
     if (depId || destId) {
       import("@/components/location-selector").then(({ getLocationById }) => {
-        let validDep = null
-        let validDest = null
+        let validDep = null;
+        let validDest = null;
 
         if (depId) {
-          const dep = getLocationById(depId)
+          const dep = getLocationById(depId);
           if (dep) {
-            validDep = dep
-            setCurrentLocation(dep)
+            validDep = dep;
+            setCurrentLocation(dep);
           }
         }
         if (destId) {
-          const dest = getLocationById(destId)
+          const dest = getLocationById(destId);
           if (dest) {
-            validDest = dest
-            setDestination(dest)
+            validDest = dest;
+            setDestination(dest);
           }
         }
 
-        if ((depId && !validDep) || (destId && !validDest) || (depId && destId && depId === destId)) {
-          router.replace("/")
-          return
+        if (
+          (depId && !validDep) ||
+          (destId && !validDest) ||
+          (depId && destId && depId === destId) ||
+          ["m", "f"].includes(depId ?? "") ||
+          ["106"].includes(destId ?? "")
+        ) {
+          router.replace("/");
+          router.refresh();
+          return;
         }
 
         // Show navigation if both locations are set and nav=true
         if (nav && validDep && validDest) {
-          setShowNavigation(true)
+          setShowNavigation(true);
         }
-      })
+      });
     }
-  }, [searchParams, router])
+  }, [searchParams, router]);
 
   const updateURL = (
     newCurrentLocation?: Location | null,
     newDestination?: Location | null,
     newRainyMode?: boolean,
-    navigate?: boolean,
+    navigate?: boolean
   ) => {
-    isUpdatingURL.current = true
+    isUpdatingURL.current = true;
 
-    const params = new URLSearchParams()
+    const params = new URLSearchParams();
 
-    const currentLoc = newCurrentLocation !== undefined ? newCurrentLocation : currentLocation
-    const destLoc = newDestination !== undefined ? newDestination : destination
-    const rainy = newRainyMode !== undefined ? newRainyMode : rainyMode
+    const currentLoc =
+      newCurrentLocation !== undefined ? newCurrentLocation : currentLocation;
+    const destLoc = newDestination !== undefined ? newDestination : destination;
+    const rainy = newRainyMode !== undefined ? newRainyMode : rainyMode;
 
-    if (currentLoc) params.set("dep", currentLoc.locid)
-    if (destLoc) params.set("dest", destLoc.locid)
-    if (rainy) params.set("rainy", "true")
-    if (navigate) params.set("nav", "true")
+    if (currentLoc) params.set("dep", currentLoc.locid);
+    if (destLoc) params.set("dest", destLoc.locid);
+    if (rainy) params.set("rainy", "true");
+    if (navigate) params.set("nav", "true");
 
-    const url = params.toString() ? `/?${params.toString()}` : "/"
-    router.replace(url)
-  }
+    const url = params.toString() ? `/?${params.toString()}` : "/";
+    router.push(url);
+  };
 
   const handleCurrentLocationChange = (location: Location | null) => {
-    setCurrentLocation(location)
-    updateURL(location, undefined, undefined, false)
-  }
+    setCurrentLocation(location);
+    updateURL(location, undefined, undefined, false);
+  };
 
   const handleDestinationChange = (location: Location | null) => {
-    setDestination(location)
-    updateURL(undefined, location, undefined, false)
-  }
+    setDestination(location);
+    updateURL(undefined, location, undefined, false);
+  };
 
   const handleRainyModeChange = (enabled: boolean) => {
-    setRainyMode(enabled)
-    updateURL(undefined, undefined, enabled, showNavigation)
-  }
+    setRainyMode(enabled);
+    updateURL(undefined, undefined, enabled, showNavigation);
+  };
 
   const handleNavigate = () => {
     if (currentLocation && destination) {
-      setShowNavigation(true)
-      updateURL(undefined, undefined, undefined, true)
+      setShowNavigation(true);
+      updateURL(undefined, undefined, undefined, true);
     }
-  }
+  };
 
   const handleBack = () => {
-    setShowNavigation(false)
-    updateURL(undefined, undefined, undefined, false)
-  }
+    setShowNavigation(false);
+    updateURL(undefined, undefined, undefined, false);
+  };
 
   useEffect(() => {
-
     const fetchTrueDestination = async () => {
-    if (!currentLocation || !destination) {
-      setTrueDestination(null)
-      return
-    }
+      if (!currentLocation || !destination) {
+        setTrueDestination(null);
+        return;
+      }
 
-    let actualDestination = destination
-    
-    if (["m", "f"].includes(destination.locid)){
-    const getCost = async (target: Location) => {
-      try {
-        setLoading(true)
-        setError(null)
+      let actualDestination = destination;
 
-        const params = new URLSearchParams({
-          departure: currentLocation.locid,
-          destination: target.locid,
-          rainy: rainyMode.toString(),
-        })
+      if (["m", "f"].includes(destination.locid)) {
+        const getCost = async (target: Location) => {
+          try {
+            setLoading(true);
+            setError(null);
 
-        const response = await fetch(`/api/route?${params}`)
+            const params = new URLSearchParams({
+              departure: currentLocation.locid,
+              destination: target.locid,
+              rainy: rainyMode.toString(),
+            });
 
-        if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || "Failed to fetch route")
+            const response = await fetch(`/api/route?${params}`);
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.error || "Failed to fetch route");
+            }
+            const data = await response.json();
+            return data.cost;
+          } catch (err) {
+            console.error("Route fetch error:", err);
+            setError(
+              err instanceof Error ? err.message : "Failed to load route"
+            );
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        const candidateBathrooms =
+          destination.locid === "m" ? maleBathrooms : femaleBathrooms;
+        let best = { closest: candidateBathrooms[0], minCost: Infinity };
+
+        for (const bathroom of candidateBathrooms) {
+          const cost = await getCost(bathroom);
+          if (cost !== undefined && cost < best.minCost) {
+            best = { closest: bathroom, minCost: cost };
+          }
         }
-        const data = await response.json()
-        return data.cost
-      } catch (err) {
-        console.error("Route fetch error:", err)
-        setError(err instanceof Error ? err.message : "Failed to load route")
-      } finally {
-        setLoading(false)
+        actualDestination = best.closest;
       }
-    }
-
-    const candidateBathrooms = destination.locid === "m" ? maleBathrooms : femaleBathrooms;
-    let best = { closest: candidateBathrooms[0], minCost: Infinity };
-
-    for (const bathroom of candidateBathrooms) {
-      const cost = await getCost(bathroom);
-      if (cost !== undefined && cost < best.minCost) {
-        best = { closest: bathroom, minCost: cost };
-      }
-    }
-    actualDestination = best.closest;
-    
-  }
-    setTrueDestination(actualDestination);
-}
+      setTrueDestination(actualDestination);
+    };
     fetchTrueDestination();
-}, [showNavigation, currentLocation, destination, rainyMode, trueDestination])
+  }, [
+    showNavigation,
+    currentLocation,
+    destination,
+    rainyMode,
+    trueDestination,
+  ]);
 
-  
   if (showNavigation && currentLocation && trueDestination) {
-    updateURL(currentLocation, trueDestination, rainyMode, true)
-    return <NavigationView from={currentLocation} to={trueDestination} onBack={handleBack} rainyMode={rainyMode} />
+    updateURL(currentLocation, trueDestination, rainyMode, true);
+    return (
+      <NavigationView
+        from={currentLocation}
+        to={trueDestination}
+        onBack={handleBack}
+        rainyMode={rainyMode}
+      />
+    );
   }
 
   return (
     <div className="min-h-screen bg-background p-4">
-      <div className="mx-auto max-w-md space-y-8 pt-8">
-        <h1 className="text-4xl font-bold text-center text-balance">Where Do You Want To Go?</h1>
-
+      <Logo />
+      <div className="mx-auto max-w-md space-y-8 pt-4">
+        {/* <Kagayaki width={80} height={80} /> */}
         <div className="space-y-4">
           <LocationSelector
             label="どこから"
@@ -224,21 +247,34 @@ export default function HomePage() {
           />
         </div>
 
-    <button
-      onClick={handleNavigate}
-      disabled={!currentLocation || !destination || currentLocation.locid === destination.locid}
-      className="w-full bg-primary text-primary-foreground font-bold italic text-7xl px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors overflow-visible"
-    >
-      <span className="-my-3 -ml-2 text-white dark:text-black block">GO!</span>
-    </button>
+        <button
+          onClick={handleNavigate}
+          disabled={
+            !currentLocation ||
+            !destination ||
+            currentLocation.locid === destination.locid
+          }
+          className="w-full bg-yellow-700 dark:bg-amber-300 text-primary-foreground font-bold italic text-8xl px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors overflow-visible"
+        >
+          <span className="-my-4 -ml-2 text-white dark:text-black block">
+            GO!
+          </span>
+        </button>
 
         <div className="flex items-center justify-center gap-3 pt-2">
           <label className="flex items-center gap-3 cursor-pointer">
-            <Switch checked={rainyMode} onCheckedChange={handleRainyModeChange} className="data-[state=unchecked]:bg-neutral-300 dark:data-[state=unchecked]:bg-neutral-700"/>
-            <span className="text-sm font-medium">雨天モード (屋内経路優先)</span>
+            <Switch
+              checked={rainyMode}
+              onCheckedChange={handleRainyModeChange}
+              className="data-[state=unchecked]:bg-neutral-300 dark:data-[state=unchecked]:bg-neutral-700"
+            />
+            <span className="text-sm font-medium">
+              雨天モード (屋内経路優先)
+            </span>
           </label>
         </div>
       </div>
+      <Footer />
     </div>
-  )
+  );
 }
