@@ -133,6 +133,256 @@
   }
 }
 
+/* ===== Huge, organic motion with breathing size ===== */
+@keyframes drift1 {
+  0% {
+    transform: translate(0%, 0%) scale(1.2);
+  }
+  25% {
+    transform: translate(0%, 0%) scale(1.6);
+  }
+  50% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  75% {
+    transform: translate(0%, 0%) scale(1.8);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1.2);
+  }
+}
+
+@keyframes drift2 {
+  0% {
+    transform: translate(100%, -50%) scale(1);
+  }
+  25% {
+    transform: translate(-90%, -10%) scale(1.7);
+  }
+  50% {
+    transform: translate(-60%, 40%) scale(1.3);
+  }
+  75% {
+    transform: translate(45%, 40%) scale(1.5);
+  }
+  100% {
+    transform: translate(100%, -50%) scale(1);
+  }
+}
+
+@keyframes drift3 {
+  0% {
+    transform: translate(-60%, 90%) scale(1.1);
+  }
+  25% {
+    transform: translate(40%, -40%) scale(1.8);
+  }
+  50% {
+    transform: translate(55%, 40%) scale(1.2);
+  }
+  75% {
+    transform: translate(-50%, 20%) scale(1.6);
+  }
+  100% {
+    transform: translate(-60%, 90%) scale(1.1);
+  }
+}
+
+@keyframes drift4 {
+  0% {
+    transform: translate(60%, -40%) scale(1.2);
+  }
+  25% {
+    transform: translate(-100%, -40%) scale(1.4);
+  }
+  50% {
+    transform: translate(-30%, 60%) scale(1.8);
+  }
+  75% {
+    transform: translate(40%, 50%) scale(1.3);
+  }
+  100% {
+    transform: translate(60%, -40%) scale(1.2);
+  }
+}
+
+@keyframes drift5 {
+  0% {
+    transform: translate(-100%, 40%) scale(1);
+  }
+  25% {
+    transform: translate(60%, -60%) scale(1.6);
+  }
+  50% {
+    transform: translate(60%, 100%) scale(1.3);
+  }
+  75% {
+    transform: translate(-40%, -40%) scale(1.7);
+  }
+  100% {
+    transform: translate(-100%, 40%) scale(1);
+  }
+}
+
+.btn-living-galaxy {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: black;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark .btn-living-galaxy {
+  background: #333;
+}
+
+.dark .btn-living-galaxy .fog {
+  scale: 1.2;
+}
+
+/* reusable fog base */
+.btn-living-galaxy::before,
+.btn-living-galaxy::after,
+.btn-living-galaxy .fog1,
+.btn-living-galaxy .fog2,
+.btn-living-galaxy .fog3,
+.btn-living-galaxy .fog4,
+.btn-living-galaxy .fog5 {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  filter: blur(60px) saturate(2);
+  opacity: 1;
+  z-index: 0;
+}
+
+/* create five independent fog layers */
+.btn-living-galaxy::before {
+  background: radial-gradient(
+    circle,
+    rgba(64, 128, 255, 0.648) 0%,
+    transparent 100%
+  );
+  animation: drift1 13s ease-in-out infinite;
+}
+.btn-living-galaxy::after {
+  background: radial-gradient(
+    circle,
+    rgba(98, 0, 255, 0.614) 0%,
+    transparent 100%
+  );
+  animation: drift2 9s ease-in-out infinite;
+}
+.btn-living-galaxy::before,
+.btn-living-galaxy::after {
+  mix-blend-mode: screen;
+}
+
+.btn-living-galaxy::before,
+.btn-living-galaxy::after {
+  pointer-events: none;
+}
+
+/* add more via pseudo-elements generated with :is() trick in HTML */
+.btn-living-galaxy::before {
+  z-index: 0;
+}
+
+/* extra fog layers using ::after siblings created via CSS variables (pseudo-elements limited to 2) */
+.btn-living-galaxy .fog1,
+.btn-living-galaxy .fog2,
+.btn-living-galaxy .fog3 {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.btn-living-galaxy .fog1 {
+  background: radial-gradient(
+    circle,
+    rgba(135, 24, 238, 0.9) 0%,
+    transparent 100%
+  );
+  animation: drift3 14s ease-in-out infinite;
+}
+.btn-living-galaxy .fog2 {
+  background: radial-gradient(
+    circle,
+    rgba(23, 79, 199, 0.463) 0%,
+    transparent 100%
+  );
+  animation: drift4 10s ease-in-out infinite;
+}
+.btn-living-galaxy .fog3 {
+  background: radial-gradient(
+    circle,
+    rgba(45, 255, 248, 0.5) 0%,
+    transparent 100%
+  );
+  animation: drift5 9s ease-in-out infinite;
+}
+
+/* dark theme variant: only colors change */
+.dark .btn-living-galaxy::before {
+  background: radial-gradient(circle, rgb(23, 154, 255) 0%, transparent 100%);
+}
+.dark .btn-living-galaxy::after {
+  background: radial-gradient(circle, rgb(106, 0, 255) 0%, transparent 100%);
+}
+.dark .btn-living-galaxy .fog1 {
+  background: radial-gradient(circle, rgb(184, 30, 250) 0%, transparent 100%);
+}
+.dark .btn-living-galaxy .fog2 {
+  background: radial-gradient(circle, rgb(46, 161, 255) 0%, transparent 100%);
+}
+.dark .btn-living-galaxy .fog3 {
+  background: radial-gradient(circle, rgb(44, 251, 255) 0%, transparent 100%);
+}
+
+.btn-living-galaxy > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* subtle hover glow */
+.btn-living-galaxy:hover {
+  box-shadow: 0 0 50px rgba(100, 200, 255, 0.4);
+}
+
+/* === Disabled state override === */
+.btn-living-galaxy:disabled,
+.btn-living-galaxy[disabled] {
+  background: #d0d0d0 !important; /* flat gray base */
+  box-shadow: none !important;
+  filter: none !important;
+  cursor: not-allowed;
+}
+
+.dark .btn-living-galaxy:disabled,
+.btn-living-galaxy[disabled] {
+  background: #303030 !important; /* flat gray base */
+  box-shadow: none !important;
+  filter: none !important;
+  cursor: not-allowed;
+}
+
+/* hide fog layers and pseudo-elements when disabled */
+.btn-living-galaxy:disabled .fog,
+.btn-living-galaxy[disabled] .fog,
+.btn-living-galaxy:disabled::before,
+.btn-living-galaxy[disabled]::before,
+.btn-living-galaxy:disabled::after,
+.btn-living-galaxy[disabled]::after {
+  display: none !important;
+  content: none !important;
+}
+
 /***************************************************
  * Generated by SVG Artista on 10/18/2025, 12:11:24 AM
  * MIT license (https://opensource.org/licenses/MIT)
