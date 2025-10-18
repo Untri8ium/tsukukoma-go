@@ -7,11 +7,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "@/components/footer";
 
-export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.app",
-};
+// export const metadata: Metadata = {
+//   title: "v0 App",
+//   description: "Created with v0",
+// };
 
 export default function RootLayout({
   children,
@@ -20,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="筑駒 GO" />
+      </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

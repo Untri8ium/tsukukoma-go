@@ -6,7 +6,7 @@ export default function Logo() {
   return (
     <div className="flex items-center justify-center pt-6">
       <div className="w-full h-auto flex justify-center">
-        <div className="w-56">
+        <div className="w-64">
           <TKGO width="100%" height="auto" />
         </div>
       </div>

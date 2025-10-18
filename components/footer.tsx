@@ -4,7 +4,7 @@ import Kagayaki from "@/public/kagayaki.svg";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center justify-center pt-8 pb-12">
+    <footer className="flex items-center justify-center pt-24 pb-12">
       {/* 
         The div wrapper helps prevent layout clipping
         and makes sure the SVG scales responsively.
@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex justify-center">
           <Kagayaki width="3rem" height="auto" />
         </div>
-        <span className="block text-center text-white text-xs mt-2">
+        <span className="block text-center text-foreground text-xs mt-2">
           © 2025 筑駒文化祭・Element138
         </span>
       </div>

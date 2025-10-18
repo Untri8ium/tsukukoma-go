@@ -179,7 +179,7 @@ export function NavigationView({
         {/* Route Summary */}
         <div
           className={`px-4 transition-all duration-300 ${
-            isScrolled ? "py-4" : "py-8"
+            isScrolled ? "py-4" : "pt-8 pb-12"
           }`}
         >
           <div className="space-y-2">
@@ -195,18 +195,20 @@ export function NavigationView({
                 外観・入口は実際と異なる場合があります
               </span>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
               <Info className="h-4 w-4" />
-              <span className="text-sm">画像をタップすると拡大表示します</span>
+              <span className="text-sm font-semibold">
+                画像をタップすると拡大表示します
+              </span>
             </div>
             {/* <div className="flex items-center gap-2 text-muted-foreground">
               <Clock className="h-4 w-4" />
               <span className="text-sm">5 min</span>
             </div> */}
             {rainyMode && (
-              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+              <div className="flex items-center gap-2 text-blue-500 dark:text-blue-500">
                 <Umbrella className="h-4 w-4" />
-                <span className="text-sm font-medium">雨天モード</span>
+                <span className="text-sm font-semibold">雨天モード</span>
               </div>
             )}
           </div>
@@ -219,23 +221,21 @@ export function NavigationView({
               index < routeSteps.length - 1 && (
                 <div key={step.id}>
                   {/* Step Card */}
-                  <div className="flex gap-4 mb-2 px-4 items-center">
+                  <button
+                    onClick={() => openZoomModal(index)}
+                    className="flex gap-4 mb-2 px-4 items-center w-full text-left bg-card border-2 border-transparent rounded-lg hover:border-primary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
                     {/* Step Image */}
                     {index !== 0 && (
-                      <div className="flex-shrink-0">
-                        <button
-                          onClick={() => openZoomModal(index)}
-                          className="w-20 h-20 bg-card border-2 border-primary rounded-lg flex items-center justify-center overflow-hidden hover:border-primary/80 transition-colors"
-                        >
-                          <img
-                            src={
-                              "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
-                                step.image || "/placeholder.svg"
-                            }
-                            alt={step.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </button>
+                      <div className="flex-shrink-0 w-20 h-20 bg-card border-2 border-primary rounded-lg flex items-center justify-center overflow-hidden hover:border-primary/80 transition-colors">
+                        <img
+                          src={
+                            "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
+                              step.image || "/placeholder.svg"
+                          }
+                          alt={step.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     )}
 
@@ -252,7 +252,7 @@ export function NavigationView({
                       )}
                       {/* <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p> */}
                     </div>
-                  </div>
+                  </button>
 
                   <div className="flex items-center gap-4 my-2 pl-4">
                     {/* Vertical line positioned to align with center of 80px thumbnail */}
@@ -293,10 +293,10 @@ export function NavigationView({
 
       {zoomModalOpen && currentStep && (
         <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
-          <div className="bg-background rounded-lg w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+          <div className="bg-background rounded-lg w-[95vw] max-w-[95vw] h-[92vh] max-h-[92vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 border-b border-border">
-              <h2 className="text-xl font-bold">
+            <div className="flex items-center justify-between p-4 border-b border-border flex-shrink-0">
+              <h2 className="text-2xl font-bold">
                 {currentStep.title || to.name}
               </h2>
               <button
@@ -309,45 +309,32 @@ export function NavigationView({
 
             {/* Modal Content */}
             {currentZoomIndex !== 0 && (
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-auto flex flex-col items-center justify-center p-2">
                 {/* Large Image */}
-                <div className="aspect-video bg-muted">
+                <div className="flex items-center justify-center w-full h-full">
                   <img
                     src={
                       "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
                         currentStep.image || "/placeholder.svg"
                     }
                     alt={currentStep.title}
-                    className="w-full h-[70vh] object-cover"
+                    className="max-w-full max-h-full object-contain rounded-md"
                   />
                 </div>
 
-                {/* Description */}
-                <div className="p-4 space-y-4">
-                  {/* <div>
-                  <h3 className="font-semibold mb-2">About this location</h3>
-                  <p className="text-muted-foreground leading-relaxed">{currentStep.description}</p>
-                </div> */}
-
-                  {/* Path to next spot with notice */}
+                {/* Description and Notice */}
+                <div className="w-full mt-4 space-y-4">
                   {currentZoomIndex < routeSteps.length - 1 && (
-                    <div>
-                      {/* <h3 className="font-semibold mb-2">Next step</h3> */}
-                      <div className="flex items-center gap-3">
-                        {/* <div className="flex items-center gap-2 text-accent dark:text-indigo-300 font-medium">
-                        <Navigation className="h-4 w-4" />
-                        {currentStep.connector}
-                      </div> */}
-                        {currentStep.notice && (
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
-                              currentStep.notice.color
-                            )}`}
-                          >
-                            {currentStep.notice.text}
-                          </span>
-                        )}
-                      </div>
+                    <div className="flex items-center gap-3">
+                      {currentStep.notice && (
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
+                            currentStep.notice.color
+                          )}`}
+                        >
+                          {currentStep.notice.text}
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -355,7 +342,7 @@ export function NavigationView({
             )}
 
             {/* Modal Footer with Navigation */}
-            <div className="flex items-center justify-between p-4 border-t border-border">
+            <div className="flex items-center justify-between p-4 border-t border-border flex-shrink-0">
               {currentZoomIndex > 0 ? (
                 <button
                   onClick={goToPrevious}
@@ -365,13 +352,7 @@ export function NavigationView({
                   前へ
                 </button>
               ) : (
-                <button
-                  onClick={() => {}}
-                  className="flex items-center gap-2 px-4 py-2 invisible transition-colors"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  前へ
-                </button>
+                <div className="w-[88px]" /> // keeps layout consistent
               )}
 
               <span className="text-sm text-muted-foreground">
@@ -387,13 +368,7 @@ export function NavigationView({
                   <ChevronRight className="h-4 w-4" />
                 </button>
               ) : (
-                <button
-                  onClick={() => {}}
-                  className="flex items-center gap-2 px-4 py-2 invisible transition-colors"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                  次へ
-                </button>
+                <div className="w-[88px]" />
               )}
             </div>
           </div>
