@@ -273,7 +273,7 @@ export default function HomePageClient() {
             <Switch
               checked={rainyMode}
               onCheckedChange={handleRainyModeChange}
-              className="data-[state=unchecked]:bg-neutral-300 dark:data-[state=unchecked]:bg-neutral-700"
+              className="data-[state=unchecked]:bg-neutral-400 dark:data-[state=unchecked]:bg-neutral-600"
             />
             <span className="text-base font-medium text-blue-600 dark:text-blue-400">
               雨天モード (屋内経路優先)

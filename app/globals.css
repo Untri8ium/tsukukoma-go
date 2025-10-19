@@ -230,6 +230,9 @@
   border: none;
   background: black;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  box-shadow: 0 0 20px 5px rgba(64, 128, 255, 0.3);
+  transition: box-shadow 0.3s ease;
 }
 
 .dark .btn-living-galaxy {

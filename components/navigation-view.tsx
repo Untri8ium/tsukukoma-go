@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ArrowLeft,
   Navigation,
@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Info,
   Umbrella,
+  Lightbulb,
 } from "lucide-react";
 import type { Location } from "@/app/page";
 import Footer from "@/components/footer";
@@ -47,6 +48,8 @@ export function NavigationView({
   const [routeSteps, setRouteSteps] = useState<RouteStep[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const fetchRoute = async () => {
@@ -91,6 +94,19 @@ export function NavigationView({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (
+      zoomModalOpen &&
+      currentZoomIndex != null &&
+      stepRefs.current[currentZoomIndex]
+    ) {
+      stepRefs.current[currentZoomIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [currentZoomIndex, zoomModalOpen]);
+
   const openZoomModal = (index: number) => {
     setCurrentZoomIndex(index);
     setZoomModalOpen(true);
@@ -120,6 +136,38 @@ export function NavigationView({
   };
 
   const currentStep = routeSteps[currentZoomIndex];
+
+  let colorTipMessageFrom = "";
+  let colorTipMessageTo = "";
+  let colorTipMessage = "";
+
+  if (from.position.includes("オレンジ")) {
+    colorTipMessageFrom = "オレンジ館は床がオレンジ色";
+  } else if (from.position.includes("レッド")) {
+    colorTipMessageFrom = "レッド館は床が赤色";
+  } else if (from.position.includes("ブルー")) {
+    colorTipMessageFrom = "ブルー館は床が青色";
+  }
+
+  if (to.position.includes("オレンジ")) {
+    colorTipMessageTo = "オレンジ館は床がオレンジ色";
+  } else if (to.position.includes("レッド")) {
+    colorTipMessageTo = "レッド館は床が赤色";
+  } else if (to.position.includes("ブルー")) {
+    colorTipMessageTo = "ブルー館は床が青色";
+  }
+
+  if (colorTipMessageFrom === "" && colorTipMessageTo === "") {
+    colorTipMessage = "";
+  } else if (colorTipMessageFrom === colorTipMessageTo) {
+    colorTipMessage = `${colorTipMessageFrom}です`;
+  } else if (colorTipMessageFrom === "") {
+    colorTipMessage = `${colorTipMessageTo}です`;
+  } else if (colorTipMessageTo === "") {
+    colorTipMessage = `${colorTipMessageFrom}です`;
+  } else {
+    colorTipMessage = `${colorTipMessageFrom}、${colorTipMessageTo}です`;
+  }
 
   if (loading) {
     return (
@@ -152,14 +200,14 @@ export function NavigationView({
     <div className="min-h-screen bg-background">
       {/* Sticky Header */}
       <div
-        className={`sticky top-0 z-50 bg-background border-b border-border transition-all duration-300 ${
+        className={`sticky top-0 z-50 border-b border-border transition-all duration-300 ${
           isScrolled ? "py-3" : "py-6"
-        }`}
+        } ${rainyMode ? "bg-blue-100 dark:bg-blue-950" : "bg-background"}`}
       >
         <div className="px-4 flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-2 hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
+            className="px-3 py-5 hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
           >
             <ArrowLeft className="h-6 w-6" />
           </button>
@@ -169,8 +217,32 @@ export function NavigationView({
               isScrolled ? "text-lg" : "text-2xl"
             }`}
           >
-            <div className="font-bold text-balance">{from.name}</div>
-            <div className="font-bold text-balance">— {to.name}</div>
+            <div className="font-bold text-balance">
+              {from.name}
+              <span
+                className={`font-medium text-muted-foreground ${
+                  isScrolled ? "text-xs" : "text-sm"
+                }`}
+              >
+                {" "}
+                から
+              </span>
+            </div>
+            <div className="font-bold text-balance">{to.name}</div>
+            {rainyMode && (
+              <div className="flex items-center mt-1 gap-2 text-blue-700 dark:text-blue-300">
+                <span
+                  className={`font-semibold ${
+                    isScrolled ? "text-xs" : "text-sm"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Umbrella className="h-4 w-4" />
+                    雨天モード
+                  </div>
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -179,16 +251,25 @@ export function NavigationView({
         {/* Route Summary */}
         <div
           className={`px-4 transition-all duration-300 ${
-            isScrolled ? "py-4" : "pt-8 pb-12"
+            isScrolled ? "py-4" : "pt-8 pb-8"
           }`}
         >
-          <div className="space-y-2">
+          <div className="space-y-1">
             <div className="flex items-center gap-2 text-muted-foreground">
               <MapPin className="h-4 w-4" />
               <span className="text-sm">
                 {from.position} → {to.position}
               </span>
             </div>
+            {colorTipMessage && (
+              <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
+                <Lightbulb className="h-4 w-4" />
+                <span className="text-sm font-semibold text-balance break-keep">
+                  {colorTipMessage}
+                </span>
+              </div>
+            )}
+
             <div className="flex items-center gap-2 text-muted-foreground">
               <MessageCircleWarning className="h-4 w-4" />
               <span className="text-sm">
@@ -205,12 +286,6 @@ export function NavigationView({
               <Clock className="h-4 w-4" />
               <span className="text-sm">5 min</span>
             </div> */}
-            {rainyMode && (
-              <div className="flex items-center gap-2 text-blue-500 dark:text-blue-500">
-                <Umbrella className="h-4 w-4" />
-                <span className="text-sm font-semibold">雨天モード</span>
-              </div>
-            )}
           </div>
         </div>
 
@@ -219,11 +294,16 @@ export function NavigationView({
           {routeSteps.map(
             (step, index) =>
               index < routeSteps.length - 1 && (
-                <div key={step.id}>
+                <div
+                  key={step.id}
+                  ref={(el) => {
+                    stepRefs.current[index] = el;
+                  }}
+                >
                   {/* Step Card */}
                   <button
                     onClick={() => openZoomModal(index)}
-                    className="flex gap-4 mb-2 px-4 items-center w-full text-left bg-card border-2 border-transparent rounded-lg hover:border-primary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="flex gap-4 mb-2 px-4 h-24 items-center w-full text-left bg-card border-2 border-border/60 rounded-lg hover:border-primary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     {/* Step Image */}
                     {index !== 0 && (
@@ -285,7 +365,7 @@ export function NavigationView({
         </div>
 
         {/* Arrival Message */}
-        <div className="mx-4 p-4 bg-accent text-accent-foreground rounded-lg text-center">
+        <div className="p-4 bg-accent text-accent-foreground rounded-lg text-center">
           <div className="text-lg font-semibold">到着</div>
           <div className="text-sm opacity-90 mt-1">{to.name}</div>
         </div>
@@ -308,38 +388,44 @@ export function NavigationView({
             </div>
 
             {/* Modal Content */}
-            {currentZoomIndex !== 0 && (
-              <div className="flex-1 overflow-auto flex flex-col items-center justify-center p-2">
-                {/* Large Image */}
-                <div className="flex items-center justify-center w-full h-full">
-                  <img
-                    src={
-                      "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
-                        currentStep.image || "/placeholder.svg"
-                    }
-                    alt={currentStep.title}
-                    className="max-w-full max-h-full object-contain rounded-md"
-                  />
-                </div>
+            <div className="flex-1 overflow-auto flex flex-col items-center justify-center p-2">
+              {currentZoomIndex !== 0 ? (
+                <>
+                  {/* Large Image */}
+                  <div className="flex items-center justify-center w-full h-full">
+                    <img
+                      src={
+                        "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
+                          currentStep.image || "/placeholder.svg"
+                      }
+                      alt={currentStep.title}
+                      className="max-w-full max-h-full object-contain rounded-md"
+                    />
+                  </div>
 
-                {/* Description and Notice */}
-                <div className="w-full mt-4 space-y-4">
-                  {currentZoomIndex < routeSteps.length - 1 && (
-                    <div className="flex items-center gap-3">
-                      {currentStep.notice && (
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
-                            currentStep.notice.color
-                          )}`}
-                        >
-                          {currentStep.notice.text}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  {/* Description and Notice */}
+                  <div className="w-full mt-4 space-y-4">
+                    {currentZoomIndex < routeSteps.length - 1 && (
+                      <div className="flex items-center gap-3">
+                        {currentStep.notice && (
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
+                              currentStep.notice.color
+                            )}`}
+                          >
+                            {currentStep.notice.text}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center justify-center w-full h-full">
+                  このステップに画像はありません
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Modal Footer with Navigation */}
             <div className="flex items-center justify-between p-4 border-t border-border flex-shrink-0">

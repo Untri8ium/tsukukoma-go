@@ -42,6 +42,24 @@ const LOCATIONS: Location[] = [
     keywords: ["そうごうあんないじょうてんじ", "インフォメーション"],
   },
   {
+    id: "56",
+    locid: "122",
+    name: "正門 (入口)",
+    category: "その他",
+    organizer: "",
+    position: "屋外",
+    keywords: ["いりぐち", "ゲート", "正門", "せいもん"],
+  },
+  {
+    id: "57",
+    locid: "124",
+    name: "正門 (出口)",
+    category: "その他",
+    organizer: "",
+    position: "屋外",
+    keywords: ["でぐち", "ゲート", "正門", "大衆賞投票所", "せいもん"],
+  },
+  {
     id: "3",
     locid: "114",
     name: "保健室",
@@ -57,7 +75,7 @@ const LOCATIONS: Location[] = [
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["きゅうけいじょ"],
+    keywords: ["きゅうけいじょ", "藤棚"],
   },
   {
     id: "5",
@@ -606,7 +624,7 @@ const LOCATIONS: Location[] = [
     locid: "166",
     name: "数学科展示",
     category: "展示 (特別)",
-    organizer: "",
+    organizer: "数学科",
     position: "レッド館3F",
     keywords: ["すうがくかてんじ", "76期テーマ学習", "特別活動室", "特活"],
   },
@@ -800,27 +818,9 @@ const LOCATIONS: Location[] = [
     locid: "116",
     name: "書道科展示",
     category: "展示 (特別)",
-    organizer: "",
+    organizer: "書道科",
     position: "6号館",
     keywords: ["しょどうかてんじ", "書道室"],
-  },
-  {
-    id: "56",
-    locid: "122",
-    name: "入口",
-    category: "その他",
-    organizer: "",
-    position: "屋外",
-    keywords: ["いりぐち", "ゲート", "正門"],
-  },
-  {
-    id: "57",
-    locid: "124",
-    name: "出口",
-    category: "その他",
-    organizer: "",
-    position: "屋外",
-    keywords: ["でぐち", "ゲート", "正門", "大衆賞投票所"],
   },
   {
     id: "58",
@@ -1243,7 +1243,7 @@ export function LocationSelector({
       </label>
 
       <div
-        className="w-full bg-input border border-border rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between"
+        className="w-full bg-input border border-2 border-border rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between"
         onClick={handleInputClick}
       >
         <div className="flex items-center gap-3 flex-1">
@@ -1268,18 +1268,48 @@ export function LocationSelector({
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-border rounded-lg shadow-lg z-50">
-          <div className="p-3 border-b border-border">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-2 border-border rounded-lg shadow-lg z-50">
+          <div className="relative w-full">
             <input
               ref={inputRef}
-              name="場所を検索"
+              name={departure ? "出発地点を検索" : "目的地を検索"}
               type="text"
-              placeholder="場所を検索..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder=""
               className="w-full bg-input border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring"
-              autoFocus
             />
+
+            {!searchTerm && (
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none text-transparent sparkle-placeholder">
+                {departure ? "出発地点を検索…" : "目的地を検索…"}
+              </span>
+            )}
+
+            <style jsx>{`
+              .sparkle-placeholder {
+                background: linear-gradient(
+                  90deg,
+                  #5481caff,
+                  #cb3881ff,
+                  #bc6a2fff,
+                  #5481caff
+                ); /* looped start/end color for seamless animation */
+                background-size: 300% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: sparkleFlow 7.5s linear infinite;
+              }
+
+              @keyframes sparkleFlow {
+                0% {
+                  background-position: 0% 0%;
+                }
+                100% {
+                  background-position: 300% 0%;
+                }
+              }
+            `}</style>
           </div>
 
           <div className="max-h-[38vh] overflow-y-auto top-full">
@@ -1308,8 +1338,12 @@ export function LocationSelector({
                 </div>
               ))
             ) : (
-              <div className="p-4 text-center text-muted-foreground">
-                場所が見つかりませんでした
+              <div className="p-4 text-center">
+                場所が見つかりません…
+                <br />
+                <span className="text-sm text-muted-foreground">
+                  ひらがなではヒットしない場合があります
+                </span>
               </div>
             )}
           </div>
