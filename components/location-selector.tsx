@@ -1301,6 +1301,7 @@ export function LocationSelector({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder=""
+              autoFocus
               className="w-full bg-input border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring"
             />
 
