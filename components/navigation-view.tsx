@@ -67,14 +67,33 @@ export function NavigationView({
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to fetch route");
+          throw new Error(
+            errorData.error ||
+              "Failed to fetch route and errorData.error is falsy"
+          );
         }
+        // throw new Error("Failed to fetch route and errorData.error is falsy");
 
         const data = await response.json();
         setRouteSteps(data.route);
       } catch (err) {
         console.error("Route fetch error:", err);
-        setError(err instanceof Error ? err.message : "Failed to load route");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to fetch route and errorData.error is falsy"
+        );
+        const callLogError = async () => {
+          await fetch(
+            `/api/logerror?error=${encodeURIComponent(
+              err instanceof Error
+                ? err.message
+                : "Attempted to log error but err is not instance of Error"
+            )}&from=${from.locid}&to=${to.locid}%rainy=${rainyMode}`
+          );
+        };
+        callLogError();
+
         // Fallback to dummy data if API fails
         setRouteSteps([]);
       } finally {
@@ -166,7 +185,7 @@ export function NavigationView({
   } else if (colorTipMessageTo === "") {
     colorTipMessage = `${colorTipMessageFrom}です`;
   } else {
-    colorTipMessage = `${colorTipMessageFrom}、${colorTipMessageTo}です`;
+    colorTipMessage = `${colorTipMessageFrom}, ${colorTipMessageTo}です`;
   }
 
   if (loading) {
@@ -184,12 +203,25 @@ export function NavigationView({
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <p className="text-destructive mb-4">Error: {error}</p>
+          <p className="text-red-600 dark:text-red-400 mb-6 text-xl font-bold">
+            エラーが発生しました
+          </p>
+          <p className="mb-6 text-sm">
+            経路探索に失敗しました。
+            <br />
+            これはユーザー様の操作に起因するものではなく、本システムの問題です。ご迷惑をおかけし申し訳ございません。
+          </p>
+          <p className="mb-6 text-sm">この不具合はサーバーに報告されました。</p>
+          <p className="mb-6 text-sm font-mono text-muted-foreground">
+            {error}
+            <br />
+            {`[${from.locid}-${to.locid}, ${rainyMode}]`}
+          </p>
           <button
             onClick={onBack}
             className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
           >
-            Go Back
+            戻る
           </button>
         </div>
       </div>
@@ -264,7 +296,7 @@ export function NavigationView({
             {colorTipMessage && (
               <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
                 <Lightbulb className="h-4 w-4" />
-                <span className="w-9/10 text-sm font-semibold text-balance break-keep">
+                <span className="text-sm font-semibold text-balance">
                   {colorTipMessage}
                 </span>
               </div>
