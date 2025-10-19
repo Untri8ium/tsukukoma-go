@@ -264,7 +264,7 @@ export function NavigationView({
             {colorTipMessage && (
               <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
                 <Lightbulb className="h-4 w-4" />
-                <span className="text-sm font-semibold text-balance break-keep">
+                <span className="w-9/10 text-sm font-semibold text-balance break-keep">
                   {colorTipMessage}
                 </span>
               </div>
