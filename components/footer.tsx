@@ -14,7 +14,7 @@ export default function Footer() {
           <Kagayaki width="3rem" height="auto" />
         </div>
         <span className="block text-center text-foreground text-xs mt-2">
-          © 2025 筑駒文化祭・Element138
+          © 2025 筑駒文化祭・Sasuke Kondo
         </span>
       </div>
     </footer>

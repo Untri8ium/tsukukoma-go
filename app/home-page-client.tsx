@@ -283,7 +283,7 @@ export default function HomePageClient() {
             !destination ||
             currentLocation.locid === destination.locid
           }
-          className="relative btn-living-galaxy w-full bg-yellow-700 dark:bg-amber-300 disabled:bg-yellow-700/30 dark:disabled:bg-amber-300/30 text-primary-foreground font-bold italic text-8xl px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors overflow-visible"
+          className="relative btn-living-galaxy w-full text-primary-foreground font-bold italic text-8xl px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors overflow-visible"
         >
           <span className="fog fog1" />
           <span className="fog fog2" />
