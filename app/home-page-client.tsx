@@ -13,6 +13,12 @@ import Footer from "@/components/footer";
 import { Metadata } from "next";
 import { de } from "date-fns/locale";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 export type Location = {
   id: string;
   locid: string;
@@ -26,6 +32,7 @@ export type Location = {
 export default function HomePageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isQr = searchParams.get("qr");
 
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
@@ -37,7 +44,21 @@ export default function HomePageClient() {
 
   const [trueDestination, setTrueDestination] = useState<Location | null>(null);
 
+  const [showBalloon, setShowBalloon] = useState(false);
+
   const isUpdatingURL = useRef(false);
+
+  useEffect(() => {
+    if (isQr) {
+      setShowBalloon(true);
+    }
+
+    const timer = setTimeout(() => {
+      setShowBalloon(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (isUpdatingURL.current) {
@@ -231,7 +252,7 @@ export default function HomePageClient() {
       <Logo />
       <div className="mx-auto max-w-md space-y-8 pt-1">
         {/* <Kagayaki width={80} height={80} /> */}
-        <div className="space-y-4">
+        <div className="relative space-y-4">
           <LocationSelector
             label="どこから"
             placeholder="出発地点を選択"
@@ -239,6 +260,12 @@ export default function HomePageClient() {
             departure={true}
             onChange={handleCurrentLocationChange}
           />
+          {showBalloon && (
+            <div className="absolute right-0 mt-0 z-100 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out">
+              現在地が自動入力されました
+              <div className="absolute top-0 left-4 w-2 h-2 bg-blue-500 rotate-45 -translate-y-1" />
+            </div>
+          )}
 
           <LocationSelector
             label="どこまで"

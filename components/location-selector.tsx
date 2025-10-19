@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, MapPin } from "lucide-react";
 import type { Location } from "@/app/page";
+import { useSearchParams } from "next/navigation";
 
 const LOCATIONS: Location[] = [
   {
@@ -1132,8 +1133,27 @@ export function LocationSelector({
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredLocations, setFilteredLocations] = useState(LOCATIONS);
+  const [highlight, setHighlight] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const searchParams = useSearchParams();
+
+  const isQr = searchParams.get("qr");
+
+  useEffect(() => {
+    // Trigger both effects on mount
+    if (isQr) {
+      setHighlight(true);
+    }
+
+    const timer = setTimeout(() => {
+      setHighlight(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     console.log(searchTerm);
@@ -1243,7 +1263,11 @@ export function LocationSelector({
       </label>
 
       <div
-        className="w-full bg-input border border-2 border-border rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between"
+        className={`w-full bg-input transition-all duration-300 rounded-lg ${
+          highlight && departure
+            ? "border-2 border-blue-500"
+            : "border border-2 border-border"
+        } rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between`}
         onClick={handleInputClick}
       >
         <div className="flex items-center gap-3 flex-1">
