@@ -71,6 +71,8 @@ export default function HomePageClient() {
     const rainy = searchParams.get("rainy") === "true";
     const nav = searchParams.get("nav") === "true";
 
+    // console.warn(destId);
+
     // If nav=true but missing either dep or dest, redirect to home
     if (nav && (!depId || !destId)) {
       router.replace("/");
@@ -106,7 +108,7 @@ export default function HomePageClient() {
           (depId && !validDep) ||
           (destId && !validDest) ||
           (depId && destId && depId === destId) ||
-          ["m", "f"].includes(depId ?? "") ||
+          ["m", "f", "169"].includes(depId ?? "") ||
           ["106"].includes(destId ?? "")
         ) {
           router.replace("/");

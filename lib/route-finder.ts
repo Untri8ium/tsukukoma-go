@@ -41,8 +41,8 @@ export interface NodeTriplet {
 //   { id: 12, coordinates: { floor: "3rd Floor" } },
 // ]
 
-const GRAPH_NODES = Array.from({ length: 168 }, (_, i) => i + 1) // MAGIC NUMBER: Total XXX nodes
-  .filter((id) => id !== 62 && id !== 159)
+const GRAPH_NODES = Array.from({ length: 200 }, (_, i) => i + 1) // UP TO 200 NODES
+  // .filter((id) => id !== 62 && id !== 159)
   .map((id) => ({ id }));
 
 const GRAPH_EDGES = [
@@ -394,6 +394,8 @@ const GRAPH_EDGES = [
   { from: 72, to: 167, distance: 0.0 },
   { from: 168, to: 73, distance: 0.0 },
   { from: 73, to: 168, distance: 0.0 },
+
+  { from: 2, to: 169, distance: 0.0 },
 ];
 
 const GRAPH_EDGES_RAINY: GraphEdge[] = [
@@ -743,6 +745,8 @@ const GRAPH_EDGES_RAINY: GraphEdge[] = [
   { from: 72, to: 167, distance: 0.0 },
   { from: 168, to: 73, distance: 0.0 },
   { from: 73, to: 168, distance: 0.0 },
+
+  { from: 2, to: 169, distance: 0.0 },
 ];
 
 // Triplet definitions for node names and descriptions
@@ -6489,6 +6493,42 @@ const NODE_TRIPLETS: NodeTriplet[] = [
     next_name: "",
     image: "638_71-31-129.jpg",
   },
+  {
+    previous: 1,
+    current: 2,
+    next: 169,
+    prev_name: "",
+    curr_name: "左手に目的地",
+    next_name: "",
+    image: "639_1-2-169.jpg",
+  },
+  {
+    previous: 14,
+    current: 2,
+    next: 169,
+    prev_name: "",
+    curr_name: "正面に目的地",
+    next_name: "",
+    image: "640_14-2-169.jpg",
+  },
+  {
+    previous: 70,
+    current: 2,
+    next: 169,
+    prev_name: "",
+    curr_name: "右手に目的地",
+    next_name: "",
+    image: "641_70-2-169.jpg",
+  },
+  {
+    previous: 164,
+    current: 2,
+    next: 169,
+    prev_name: "まず校庭側の道に出る",
+    curr_name: "正面に目的地",
+    next_name: "",
+    image: "642_164-2-169.JPEG",
+  },
 ];
 
 // Dijkstra's algorithm for shortest path
@@ -6585,9 +6625,12 @@ export async function findRoute(
   excludedEdges: Array<{ from: number; to: number }> = [],
   rainyMode = false
 ) {
-  console.log(
-    `Finding route from ${departure} to ${destination} (rainyMode: ${rainyMode})`
-  );
+  // console.log(
+  //   `Finding route from ${departure} to ${destination} (rainyMode: ${rainyMode})`
+  // );
+  if (destination === 169) {
+    rainyMode = false;
+  }
   const path = dijkstra(
     GRAPH_NODES,
     rainyMode ? GRAPH_EDGES_RAINY : GRAPH_EDGES,
@@ -6602,7 +6645,7 @@ export async function findRoute(
 
   const route = [];
 
-  console.log("Path found:", path);
+  // console.log("Path found:", path);
 
   for (let i = 0; i < path.length; i++) {
     const isStart = i === 0;

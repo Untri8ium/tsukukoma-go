@@ -10,7 +10,7 @@ const LOCATIONS: Location[] = [
     id: "m",
     locid: "m",
     name: "最寄りの男子トイレ",
-    category: "自動選択",
+    category: "男子トイレ自動選択",
     organizer: "",
     position: "RED館・BLUE館・ORANGE館に限る",
     keywords: ["もよりのだんしといれ"],
@@ -19,10 +19,19 @@ const LOCATIONS: Location[] = [
     id: "f",
     locid: "f",
     name: "最寄りの女子トイレ",
-    category: "自動選択",
+    category: "女子トイレ自動選択",
     organizer: "",
     position: "RED館・BLUE館・ORANGE館に限る",
     keywords: ["もよりのじょしといれ"],
+  },
+  {
+    id: "58",
+    locid: "123",
+    name: "受付",
+    category: "その他",
+    organizer: "",
+    position: "屋外",
+    keywords: ["うけつけ", "パンフレット", "ロータリー", "ろーたりー"],
   },
   {
     id: "1",
@@ -43,13 +52,20 @@ const LOCATIONS: Location[] = [
     keywords: ["そうごうあんないじょうてんじ", "インフォメーション"],
   },
   {
-    id: "58",
-    locid: "123",
-    name: "受付",
-    category: "その他",
+    id: "91",
+    locid: "169",
+    name: "グラウンド",
+    category: "避難所",
     organizer: "",
     position: "屋外",
-    keywords: ["うけつけ", "パンフレット", "ロータリー", "ろーたりー"],
+    keywords: [
+      "ぐらうんど",
+      "校庭",
+      "こうてい",
+      "グランド",
+      "避難所",
+      "ひなんじょ",
+    ],
   },
   {
     id: "56",
@@ -1190,7 +1206,7 @@ export function LocationSelector({
             keyword.toLowerCase().includes(term)
           )) &&
         (departure
-          ? !["m", "f"].includes(location.locid)
+          ? !["m", "f", "169"].includes(location.locid)
           : !["106"].includes(location.locid))
     )
       .map((location, index) => {
@@ -1212,7 +1228,7 @@ export function LocationSelector({
           score = Math.max(score, 0.6);
 
         if (
-          location.name.includes("トイレ") ||
+          // location.name.includes("トイレ") ||
           location.name.includes("階段前")
         ) {
           score -= 0.5; // deprioritize bathrooms and staircases
@@ -1271,6 +1287,9 @@ export function LocationSelector({
       女子トイレ: "bg-pink-100 text-pink-900",
       男女トイレ: "bg-purple-100 text-purple-900",
       その他: "bg-neutral-100 text-neutral-900",
+      避難所: "bg-red-200 text-red-800",
+      男子トイレ自動選択: "bg-blue-200 text-blue-800",
+      女子トイレ自動選択: "bg-pink-200 text-pink-800",
     };
     return (
       colors[category as keyof typeof colors] || "bg-gray-100 text-gray-800"

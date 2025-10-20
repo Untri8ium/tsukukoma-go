@@ -13,6 +13,7 @@ import {
   Info,
   Umbrella,
   Lightbulb,
+  TriangleAlert,
 } from "lucide-react";
 import type { Location } from "@/app/page";
 import Footer from "@/components/footer";
@@ -268,10 +269,17 @@ export function NavigationView({
                     isScrolled ? "text-xs" : "text-sm"
                   }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <Umbrella className="h-4 w-4" />
-                    雨天モード
-                  </div>
+                  {" "}
+                  {to.locid === "169" ? (
+                    <div className="flex items-center gap-2">
+                      グラウンドへのルートに雨天モードは無効です
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Umbrella className="h-4 w-4" />
+                      雨天モード
+                    </div>
+                  )}
                 </span>
               </div>
             )}
@@ -308,12 +316,20 @@ export function NavigationView({
                 外観・入口は実際と異なる場合があります
               </span>
             </div>
-            <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
+            <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
               <Info className="h-4 w-4" />
               <span className="text-sm font-semibold">
                 画像をタップすると拡大表示します
               </span>
             </div>
+            {to.locid === "169" && (
+              <div className="flex items-center gap-2 p-2 border border-2 rounded-md border-red-600 dark:border-red-400 text-red-600 dark:text-red-400">
+                <TriangleAlert className="h-4 w-4" />
+                <span className="font-semibold text-balance">
+                  災害発生時は文実の指示に従ってください
+                </span>
+              </div>
+            )}
             {/* <div className="flex items-center gap-2 text-muted-foreground">
               <Clock className="h-4 w-4" />
               <span className="text-sm">5 min</span>
