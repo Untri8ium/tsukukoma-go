@@ -27,12 +27,12 @@ const LOCATIONS: Location[] = [
   {
     id: "58",
     locid: "123",
-    name: "正門前受付",
+    name: "受付 (正門前)",
     category: "その他",
     organizer: "",
     position: "屋外",
     keywords: [
-      "せいもんまえうけつけ",
+      "うけつけせいもんまえ",
       "パンフレット",
       "ロータリー",
       "ろーたりー",

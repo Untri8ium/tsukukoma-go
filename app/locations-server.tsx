@@ -22,11 +22,16 @@ export const LOCATIONS: Location[] = [
   {
     id: "58",
     locid: "123",
-    name: "正門前受付",
+    name: "受付 (正門前)",
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["うけつけ", "パンフレット", "ロータリー", "ろーたりー"],
+    keywords: [
+      "うけつけせいもんまえ",
+      "パンフレット",
+      "ロータリー",
+      "ろーたりー",
+    ],
   },
   {
     id: "1",
