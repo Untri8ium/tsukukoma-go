@@ -49,7 +49,14 @@ const LOCATIONS: Location[] = [
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["いりぐち", "ゲート", "正門", "せいもん"],
+    keywords: [
+      "いりぐち",
+      "ゲート",
+      "正門",
+      "せいもん",
+      "ロータリー",
+      "ろーたりー",
+    ],
   },
   {
     id: "57",
@@ -58,7 +65,15 @@ const LOCATIONS: Location[] = [
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["でぐち", "ゲート", "正門", "大衆賞投票所", "せいもん"],
+    keywords: [
+      "でぐち",
+      "ゲート",
+      "正門",
+      "大衆賞投票所",
+      "せいもん",
+      "ロータリー",
+      "ろーたりー",
+    ],
   },
   {
     id: "3",
