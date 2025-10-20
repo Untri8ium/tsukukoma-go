@@ -48,6 +48,11 @@ export default function HomePageClient() {
 
   const isUpdatingURL = useRef(false);
 
+  const depId = searchParams.get("dep");
+  const destId = searchParams.get("dest");
+  const rainy = searchParams.get("rainy") === "true";
+  const nav = searchParams.get("nav") === "true";
+
   useEffect(() => {
     if (isQr) {
       setShowBalloon(true);
@@ -65,11 +70,6 @@ export default function HomePageClient() {
       isUpdatingURL.current = false;
       return;
     }
-
-    const depId = searchParams.get("dep");
-    const destId = searchParams.get("dest");
-    const rainy = searchParams.get("rainy") === "true";
-    const nav = searchParams.get("nav") === "true";
 
     // console.warn(destId);
 
@@ -262,12 +262,6 @@ export default function HomePageClient() {
             departure={true}
             onChange={handleCurrentLocationChange}
           />
-          {showBalloon && (
-            <div className="absolute right-0 mt-0 z-100 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out">
-              現在地が自動入力されました
-              <div className="absolute top-0 left-4 w-2 h-2 bg-blue-500 rotate-45 -translate-y-1" />
-            </div>
-          )}
 
           <LocationSelector
             label="どこまで"

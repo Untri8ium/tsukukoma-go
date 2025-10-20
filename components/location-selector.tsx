@@ -27,11 +27,16 @@ const LOCATIONS: Location[] = [
   {
     id: "58",
     locid: "123",
-    name: "受付",
+    name: "正門前受付",
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["うけつけ", "パンフレット", "ロータリー", "ろーたりー"],
+    keywords: [
+      "せいもんまえうけつけ",
+      "パンフレット",
+      "ロータリー",
+      "ろーたりー",
+    ],
   },
   {
     id: "1",
@@ -1171,6 +1176,9 @@ export function LocationSelector({
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredLocations, setFilteredLocations] = useState(LOCATIONS);
   const [highlight, setHighlight] = useState(false);
+  const [inputHighlight, setInputHighlight] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
+  const [showInputBalloon, setShowInputBalloon] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -1178,6 +1186,8 @@ export function LocationSelector({
   const searchParams = useSearchParams();
 
   const isQr = searchParams.get("qr");
+  const dep = searchParams.get("dep");
+  const dest = searchParams.get("dest");
 
   useEffect(() => {
     // Trigger both effects on mount
@@ -1265,6 +1275,17 @@ export function LocationSelector({
   const handleInputClick = () => {
     setIsOpen(!isOpen);
     setSearchTerm("");
+
+    // Only trigger the blue border the first time it's opened
+    if (!hasOpened) {
+      setInputHighlight(true);
+      setHasOpened(true);
+      setShowInputBalloon(true);
+      setTimeout(() => {
+        setInputHighlight(false);
+        setShowInputBalloon(false);
+      }, 5000);
+    }
   };
 
   const handleLocationSelect = (location: Location) => {
@@ -1304,7 +1325,7 @@ export function LocationSelector({
 
       <div
         className={`w-full bg-input transition-all duration-300 rounded-lg ${
-          highlight && departure
+          highlight && ((departure && dep) || (!departure && dest))
             ? "border-2 border-blue-500"
             : "border border-2 border-border"
         } rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between`}
@@ -1329,11 +1350,34 @@ export function LocationSelector({
             isOpen ? "rotate-180" : ""
           }`}
         />
+
+        {highlight &&
+          (departure && dep ? (
+            <div className="absolute -bottom-12 right-0 mt-0 z-10 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out">
+              出発地点が自動入力されました
+              <div className="absolute top-0 left-4 w-2 h-2 bg-blue-500 rotate-45 -translate-y-1" />
+            </div>
+          ) : (
+            !departure &&
+            dest && (
+              <div className="absolute -bottom-12 right-0 mt-0 z-10 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out">
+                目的地が自動入力されました
+                <div className="absolute top-0 left-4 w-2 h-2 bg-blue-500 rotate-45 -translate-y-1" />
+              </div>
+            )
+          ))}
       </div>
 
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-2 border-border rounded-lg shadow-lg z-50">
           <div className="relative w-full">
+            {showInputBalloon && (
+              <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-50 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out pointer-events-none">
+                キーワードから場所を検索できます
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-blue-500 rotate-45" />
+              </div>
+            )}
+
             <input
               ref={inputRef}
               name={departure ? "ここに入力して検索" : "ここに入力して検索"}
@@ -1342,7 +1386,11 @@ export function LocationSelector({
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder=""
               autoFocus
-              className="w-full bg-input border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring"
+              className={`w-full bg-input rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ring transition-all duration-300 ${
+                inputHighlight
+                  ? "border-4 border-blue-500"
+                  : "border border-border"
+              }`}
             />
 
             {!searchTerm && (

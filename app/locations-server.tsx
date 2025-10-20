@@ -22,7 +22,7 @@ export const LOCATIONS: Location[] = [
   {
     id: "58",
     locid: "123",
-    name: "受付",
+    name: "正門前受付",
     category: "その他",
     organizer: "",
     position: "屋外",
