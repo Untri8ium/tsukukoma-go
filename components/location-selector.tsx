@@ -43,6 +43,15 @@ const LOCATIONS: Location[] = [
     keywords: ["そうごうあんないじょうてんじ", "インフォメーション"],
   },
   {
+    id: "58",
+    locid: "123",
+    name: "受付",
+    category: "その他",
+    organizer: "",
+    position: "屋外",
+    keywords: ["うけつけ", "パンフレット", "ロータリー", "ろーたりー"],
+  },
+  {
     id: "56",
     locid: "122",
     name: "正門 (入口)",
@@ -839,15 +848,6 @@ const LOCATIONS: Location[] = [
     keywords: ["しょどうかてんじ", "書道室"],
   },
   {
-    id: "58",
-    locid: "123",
-    name: "受付",
-    category: "その他",
-    organizer: "",
-    position: "屋外",
-    keywords: ["うけつけ", "パンフレット"],
-  },
-  {
     id: "59",
     locid: "125",
     name: "事務室",
@@ -863,7 +863,13 @@ const LOCATIONS: Location[] = [
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["ふぉとすぽっと", "写真スポット", "記念写真"],
+    keywords: [
+      "ふぉとすぽっと",
+      "写真スポット",
+      "記念写真",
+      "ロータリー",
+      "ろーたりー",
+    ],
   },
   {
     id: "61",
