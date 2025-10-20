@@ -1296,7 +1296,7 @@ export function LocationSelector({
           <div className="relative w-full">
             <input
               ref={inputRef}
-              name={departure ? "出発地点を検索" : "目的地を検索"}
+              name={departure ? "ここに入力して検索" : "ここに入力して検索"}
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -1307,7 +1307,7 @@ export function LocationSelector({
 
             {!searchTerm && (
               <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none text-transparent sparkle-placeholder">
-                {departure ? "出発地点を検索…" : "目的地を検索…"}
+                {departure ? "ここに入力して検索…" : "ここに入力して検索…"}
               </span>
             )}
 
