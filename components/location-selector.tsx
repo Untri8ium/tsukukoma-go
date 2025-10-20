@@ -880,13 +880,16 @@ const LOCATIONS: Location[] = [
   {
     id: "60",
     locid: "126",
-    name: "フォトスポット",
+    name: "フォトスタジオ",
     category: "その他",
     organizer: "",
     position: "屋外",
     keywords: [
+      "ふぉとすたじお",
+      "フォトスポット",
       "ふぉとすぽっと",
       "写真スポット",
+      "しゃしんすぽっと",
       "記念写真",
       "ロータリー",
       "ろーたりー",
