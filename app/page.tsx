@@ -28,18 +28,25 @@ export async function generateMetadata({
   // const searchParams = useSearchParams();
   const depId = searchParams.dep;
   const destId = searchParams.dest;
+  const nav = searchParams.nav;
   const depName = LOCATIONS.find((loc) => loc.locid === depId)?.name;
   const destName = LOCATIONS.find((loc) => loc.locid === destId)?.name;
   let title = "Tsukukoma GO | 筑駒文化祭経路ナビ";
   let description = "急ごう、はしゃごう、Tsukukoma GO!";
   if (depName && destName) {
-    title = `${depName} から ${destName} | Tsukukoma GO`;
+    title = nav
+      ? `${depName} から ${destName} | Tsukukoma GO`
+      : "Tsukukoma GO | 筑駒文化祭経路ナビ";
     description = `「${depName}」から「${destName}」へ、急ごう、はしゃごう、Tsukukoma GO!`;
   } else if (depName) {
-    title = `${depName} から | Tsukukoma GO`;
+    title = nav
+      ? `${depName} から | Tsukukoma GO`
+      : "Tsukukoma GO | 筑駒文化祭経路ナビ";
     description = `「${depName}」からどこへでも、急ごう、はしゃごう、Tsukukoma GO!`;
   } else if (destName) {
-    title = `${destName} へ | Tsukukoma GO`;
+    title = nav
+      ? `${destName} へ | Tsukukoma GO`
+      : "Tsukukoma GO | 筑駒文化祭経路ナビ";
     description = `どこからでも「${destName}」へ、急ごう、はしゃごう、Tsukukoma GO!`;
   }
   return {
