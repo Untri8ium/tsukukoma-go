@@ -1376,7 +1376,9 @@ export function LocationSelector({
           <div className="relative w-full">
             {showInputBalloon && (
               <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-50 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out pointer-events-none">
-                キーワードから場所を検索できます
+                {departure
+                  ? "キーワードで出発地点を検索できます"
+                  : "キーワードで目的地を検索できます"}
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-blue-500 rotate-45" />
               </div>
             )}

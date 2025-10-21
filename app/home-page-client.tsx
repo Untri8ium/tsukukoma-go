@@ -286,7 +286,7 @@ export default function HomePageClient() {
           <span className="fog fog3" />
           {/* <span className="fog fog4" />
           <span className="fog fog5" /> */}
-          <span className="-my-4 -ml-2 text-white dark:text-black block">
+          <span className="-my-4 -ml-4 text-white dark:text-black block">
             GO!
           </span>
         </button>

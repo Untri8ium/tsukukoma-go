@@ -326,7 +326,7 @@ export function NavigationView({
               <div className="flex items-center gap-2 p-2 border border-2 rounded-md border-red-600 dark:border-red-400 text-red-600 dark:text-red-400">
                 <TriangleAlert className="h-4 w-4" />
                 <span className="font-semibold text-balance">
-                  災害時は文実に従ってください
+                  災害時は係員の指示を優先してください
                 </span>
               </div>
             )}
