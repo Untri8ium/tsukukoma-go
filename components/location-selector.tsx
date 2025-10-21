@@ -41,7 +41,7 @@ const LOCATIONS: Location[] = [
   {
     id: "1",
     locid: "149",
-    name: "総合案内所 (晴天時)",
+    name: "総合案内所 (通常)",
     category: "その他",
     organizer: "",
     position: "屋外 (中庭)",
