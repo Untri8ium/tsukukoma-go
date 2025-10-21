@@ -33,10 +33,13 @@ export async function generateMetadata({
   let title = "Tsukukoma GO | 筑駒文化祭経路ナビ";
   let description = "急ごう、はしゃごう、Tsukukoma GO!";
   if (depName && destName) {
+    title = `${depName} から ${destName} | Tsukukoma GO`;
     description = `「${depName}」から「${destName}」へ、急ごう、はしゃごう、Tsukukoma GO!`;
   } else if (depName) {
+    title = `${depName} から | Tsukukoma GO`;
     description = `「${depName}」からどこへでも、急ごう、はしゃごう、Tsukukoma GO!`;
   } else if (destName) {
+    title = `${destName} へ | Tsukukoma GO`;
     description = `どこからでも「${destName}」へ、急ごう、はしゃごう、Tsukukoma GO!`;
   }
   return {
