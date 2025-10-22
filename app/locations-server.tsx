@@ -826,7 +826,7 @@ export const LOCATIONS: Location[] = [
   {
     id: "53",
     locid: "101",
-    name: "Wind Festa 2025 -Harmonia-",
+    name: "○○部",
     category: "パフォーマンス",
     organizer: "中高音楽部",
     position: "体育館",
