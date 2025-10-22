@@ -420,7 +420,7 @@ export function NavigationView({
       </div>
 
       {zoomModalOpen && currentStep && (
-        <div className="fixed top-0 left-0 w-screen h-[100dvh] z-[100] bg-black/80 flex items-center justify-center p-4">
+        <div className="fixed top-0 left-0 w-screen h-[100vh] z-[100] bg-black/80 flex items-center justify-center p-4">
           <div className="bg-background rounded-lg w-[95vw] max-w-[95vw] h-[92vh] max-h-[92vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-border flex-shrink-0">
