@@ -1260,7 +1260,7 @@ const NODE_TRIPLETS: NodeTriplet[] = [
     current: 8,
     next: 10,
     prev_name: "まず階段を背にして左へ",
-    curr_name: "渡り廊下入口を通過",
+    curr_name: "部屋を通過",
     next_name: "",
     image: "57_6-8-10.jpg",
   },
