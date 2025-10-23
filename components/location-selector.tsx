@@ -833,7 +833,7 @@ const LOCATIONS: Location[] = [
     locid: "101",
     name: "○○部",
     category: "パフォーマンス",
-    organizer: "中高音楽部",
+    organizer: "○○部",
     position: "体育館",
     keywords: [
       "ういんどふぇすた2025はーもにあ",
