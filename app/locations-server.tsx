@@ -839,6 +839,15 @@ export const LOCATIONS: Location[] = [
     ],
   },
   {
+    id: "92",
+    locid: "101",
+    name: "轟",
+    category: "その他",
+    organizer: "中夜祭",
+    position: "体育館",
+    keywords: ["とどろき", "ちゅうやさい"],
+  },
+  {
     id: "54",
     locid: "158",
     name: "Free Fall",
@@ -875,13 +884,16 @@ export const LOCATIONS: Location[] = [
   {
     id: "60",
     locid: "126",
-    name: "フォトスポット",
+    name: "フォトスタジオ",
     category: "その他",
     organizer: "",
     position: "屋外",
     keywords: [
+      "ふぉとすたじお",
+      "フォトスポット",
       "ふぉとすぽっと",
       "写真スポット",
+      "しゃしんすぽっと",
       "記念写真",
       "ロータリー",
       "ろーたりー",

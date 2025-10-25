@@ -844,6 +844,15 @@ const LOCATIONS: Location[] = [
     ],
   },
   {
+    id: "92",
+    locid: "101",
+    name: "轟",
+    category: "その他",
+    organizer: "中夜祭",
+    position: "体育館",
+    keywords: ["とどろき", "ちゅうやさい"],
+  },
+  {
     id: "54",
     locid: "158",
     name: "Free Fall",
