@@ -831,9 +831,9 @@ const LOCATIONS: Location[] = [
   {
     id: "53",
     locid: "101",
-    name: "○○部",
+    name: "Wind Festa 2025 -Harmonia-",
     category: "パフォーマンス",
-    organizer: "○○部",
+    organizer: "中高音楽部",
     position: "体育館",
     keywords: [
       "ういんどふぇすた2025はーもにあ",
