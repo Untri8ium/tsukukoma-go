@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { Location } from "@/app/page";
 import Footer from "@/components/footer";
+import Image from "next/image";
 
 interface RouteStep {
   id: string;
@@ -356,12 +357,11 @@ export function NavigationView({
                     {/* Step Image */}
                     {index !== 0 && (
                       <div className="flex-shrink-0 w-20 h-20 bg-card border-2 border-primary rounded-lg flex items-center justify-center overflow-hidden hover:border-primary/80 transition-colors">
-                        <img
-                          src={
-                            "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
-                              step.image || "/placeholder.svg"
-                          }
+                        <Image
+                          src={`/assembly/${step.image || "/placeholder.svg"}`}
                           alt={step.title}
+                          width={270}
+                          height={480}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -441,11 +441,12 @@ export function NavigationView({
                 <>
                   {/* Large Image */}
                   <div className="flex items-center justify-center w-full h-full">
-                    <img
-                      src={
-                        "https://thcsjaq7dqs507lr.public.blob.vercel-storage.com/" +
-                          currentStep.image || "/placeholder.svg"
-                      }
+                    <Image
+                      src={`/assembly/${
+                        currentStep.image || "/placeholder.svg"
+                      }`}
+                      width={540}
+                      height={960}
                       alt={currentStep.title}
                       className="max-w-full max-h-full object-contain rounded-md"
                     />
