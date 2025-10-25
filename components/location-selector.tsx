@@ -1227,13 +1227,13 @@ export function LocationSelector({
 
         if (location.name.toLowerCase().includes(term))
           score = Math.max(score, 1);
+        if (location.organizer.toLowerCase().includes(term))
+          score = Math.max(score, 0.9);
         if (
           location.keywords.some((keyword) =>
             keyword.toLowerCase().includes(term)
           )
         )
-          score = Math.max(score, 0.9);
-        if (location.organizer.toLowerCase().includes(term))
           score = Math.max(score, 0.8);
         if (location.category.toLowerCase().includes(term))
           score = Math.max(score, 0.7);
