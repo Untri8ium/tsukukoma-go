@@ -51,6 +51,12 @@ export function NavigationView({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [mapMode, setMapMode] = useState(false);
+
+  useEffect(() => {
+    if (zoomModalOpen) setMapMode(false);
+  }, [zoomModalOpen]);
+
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -187,7 +193,7 @@ export function NavigationView({
   } else if (colorTipMessageTo === "") {
     colorTipMessage = `${colorTipMessageFrom}です`;
   } else {
-    colorTipMessage = `${colorTipMessageFrom}, ${colorTipMessageTo}です`;
+    colorTipMessage = `${colorTipMessageFrom}、${colorTipMessageTo}です`;
   }
 
   if (loading) {
@@ -305,9 +311,7 @@ export function NavigationView({
             {colorTipMessage && (
               <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
                 <Lightbulb className="h-4 w-4" />
-                <span className="text-sm font-semibold text-balance">
-                  {colorTipMessage}
-                </span>
+                <span className="text-sm font-semibold">{colorTipMessage}</span>
               </div>
             )}
 
@@ -384,7 +388,7 @@ export function NavigationView({
 
                   <div className="flex items-center justify-center gap-4 my-2 pl-4">
                     {/* Vertical line positioned to align with center of 80px thumbnail */}
-                    <div className="flex-shrink-0 w-20 flex justify-center">
+                    <div className="flex-shrink-0 w-full flex justify-center">
                       <div className="w-0.5 h-8 bg-neutral-300 dark:bg-neutral-700" />
                     </div>
 
@@ -421,7 +425,7 @@ export function NavigationView({
 
       {zoomModalOpen && currentStep && (
         <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4">
-          <div className="bg-background rounded-lg w-[95vw] max-w-[95vw] h-[92vh] max-h-[92vh] overflow-hidden flex flex-col">
+          <div className="bg-background rounded-lg w-[95vw] max-w-[95vw] h-[92vh] max-h-[92vh] overflow-hidden flex flex-col relative">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-border flex-shrink-0">
               <h2 className="text-2xl font-bold">
@@ -436,79 +440,105 @@ export function NavigationView({
             </div>
 
             {/* Modal Content */}
-            <div className="flex-1 overflow-auto flex flex-col items-center justify-center p-2">
-              {currentZoomIndex !== 0 ? (
-                <>
-                  {/* Large Image */}
-                  <div className="flex items-center justify-center w-full h-full">
-                    <Image
-                      src={`/assembly/${
-                        currentStep.image || "/placeholder.svg"
-                      }`}
-                      width={540}
-                      height={960}
-                      alt={currentStep.title}
-                      className="max-w-full max-h-full object-contain rounded-md"
-                    />
-                  </div>
+            <div className="flex-1 overflow-auto flex flex-col items-center justify-center p-2 relative">
+              {!mapMode ? (
+                currentZoomIndex !== 0 ? (
+                  <>
+                    {/* Large Image */}
+                    <div className="flex items-center justify-center w-full h-full">
+                      <Image
+                        src={`/assembly/${
+                          currentStep.image || "/placeholder.svg"
+                        }`}
+                        width={540}
+                        height={960}
+                        alt={currentStep.title}
+                        className="max-w-full max-h-full object-contain rounded-md"
+                      />
+                    </div>
 
-                  {/* Description and Notice */}
-                  <div className="w-full mt-4 space-y-4">
-                    {currentZoomIndex < routeSteps.length - 1 && (
-                      <div className="flex items-center gap-3">
-                        {currentStep.notice && (
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
-                              currentStep.notice.color
-                            )}`}
-                          >
-                            {currentStep.notice.text}
-                          </span>
-                        )}
-                      </div>
-                    )}
+                    {/* Description and Notice */}
+                    <div className="w-full mt-4 space-y-4">
+                      {currentZoomIndex < routeSteps.length - 1 && (
+                        <div className="flex items-center gap-3">
+                          {currentStep.notice && (
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
+                                currentStep.notice.color
+                              )}`}
+                            >
+                              {currentStep.notice.text}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full">
+                    このステップに画像はありません
                   </div>
-                </>
+                )
               ) : (
                 <div className="flex items-center justify-center w-full h-full">
-                  このステップに画像はありません
+                  <Image
+                    src="/grandmap.png"
+                    alt="学校全体図"
+                    height="800"
+                    width="600"
+                  />
                 </div>
               )}
+
+              {/* Floating Toggle Button
+              <button
+                onClick={() => setMapMode(!mapMode)}
+                className="absolute bottom-9 right-6 w-12 h-12 rounded-full bg-accent text-secondary-foreground flex items-center justify-center shadow-lg shadow-accent hover:scale-105 transition-transform"
+              >
+                {mapMode ? (
+                  <ChevronLeft className="h-6 w-6" /> // Back icon
+                ) : (
+                  <MapPin className="h-6 w-6" /> // Map pin icon
+                )}
+              </button> */}
             </div>
 
             {/* Modal Footer with Navigation */}
-            <div className="flex items-center justify-between p-4 border-t border-border flex-shrink-0">
-              {currentZoomIndex > 0 ? (
-                <button
-                  onClick={goToPrevious}
-                  className="flex items-center gap-2 px-4 py-2 bg-accent text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  前へ
-                </button>
-              ) : (
-                <div className="w-[88px]" /> // keeps layout consistent
-              )}
+            {
+              <div className="flex items-center justify-between p-4 border-t border-border flex-shrink-0">
+                {currentZoomIndex > 0 ? (
+                  <button
+                    onClick={goToPrevious}
+                    className="flex items-center gap-2 px-4 py-2 bg-accent text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    前へ
+                  </button>
+                ) : (
+                  <div className="w-[88px]" /> // keeps layout consistent
+                )}
 
-              <span className="text-sm text-muted-foreground">
-                {currentZoomIndex + 1} / {routeSteps.length - 1}
-              </span>
+                <span className="text-sm text-muted-foreground">
+                  {currentZoomIndex + 1} / {routeSteps.length - 1}
+                </span>
 
-              {currentZoomIndex < routeSteps.length - 2 ? (
-                <button
-                  onClick={goToNext}
-                  className="flex items-center gap-2 px-4 py-2 bg-accent text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
-                >
-                  次へ
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              ) : (
-                <div className="w-[88px]" />
-              )}
-            </div>
+                {currentZoomIndex < routeSteps.length - 2 ? (
+                  <button
+                    onClick={goToNext}
+                    className="flex items-center gap-2 px-4 py-2 bg-accent text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
+                  >
+                    次へ
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <div className="w-[88px]" />
+                )}
+              </div>
+            }
           </div>
         </div>
       )}
+
       <Footer />
     </div>
   );

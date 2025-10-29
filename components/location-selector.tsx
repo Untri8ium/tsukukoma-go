@@ -1159,7 +1159,7 @@ const LOCATIONS: Location[] = [
 ];
 
 export function getLocationById(id: string): Location | null {
-  return LOCATIONS.find((location) => location.locid === id) || null;
+  return LOCATIONS.find((location) => location.id === id) || null;
 }
 
 export const maleBathrooms = LOCATIONS.filter(
