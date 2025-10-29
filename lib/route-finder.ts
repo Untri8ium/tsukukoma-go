@@ -1,3 +1,4 @@
+import { LOCATIONS } from "@/app/locations-server";
 import { is } from "date-fns/locale";
 
 export interface GraphNode {
@@ -6628,19 +6629,27 @@ export async function findRoute(
   // console.log(
   //   `Finding route from ${departure} to ${destination} (rainyMode: ${rainyMode})`
   // );
-  if (destination === 169) {
+
+  const departureLoc = parseInt(
+    LOCATIONS.find((loc) => loc.id === departure.toString())?.locid ?? "0"
+  );
+  const destinationLoc = parseInt(
+    LOCATIONS.find((loc) => loc.id === destination.toString())?.locid ?? "0"
+  );
+
+  if (destinationLoc === 169) {
     rainyMode = false;
   }
   const path = dijkstra(
     GRAPH_NODES,
     rainyMode ? GRAPH_EDGES_RAINY : GRAPH_EDGES,
-    departure,
-    destination,
+    departureLoc,
+    destinationLoc,
     excludedEdges
   );
 
   if (path.length === 0) {
-    throw new Error(`No route found from ${departure} to ${destination}`);
+    throw new Error(`No route found from ${departureLoc} to ${destinationLoc}`);
   }
 
   const route = [];

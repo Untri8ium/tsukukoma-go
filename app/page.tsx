@@ -29,8 +29,8 @@ export async function generateMetadata({
   const depId = searchParams.dep;
   const destId = searchParams.dest;
   const nav = searchParams.nav;
-  const depName = LOCATIONS.find((loc) => loc.locid === depId)?.name;
-  const destName = LOCATIONS.find((loc) => loc.locid === destId)?.name;
+  const depName = LOCATIONS.find((loc) => loc.id === depId)?.name;
+  const destName = LOCATIONS.find((loc) => loc.id === destId)?.name;
   let title = "Tsukukoma GO | 筑駒文化祭経路ナビ";
   let description = "急ごう、はしゃごう、Tsukukoma GO!";
   if (depName && destName) {

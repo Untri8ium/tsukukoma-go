@@ -139,8 +139,8 @@ export default function HomePageClient() {
     const destLoc = newDestination !== undefined ? newDestination : destination;
     const rainy = newRainyMode !== undefined ? newRainyMode : rainyMode;
 
-    if (currentLoc) params.set("dep", currentLoc.locid);
-    if (destLoc) params.set("dest", destLoc.locid);
+    if (currentLoc) params.set("dep", currentLoc.id);
+    if (destLoc) params.set("dest", destLoc.id);
     if (rainy) params.set("rainy", "true");
     if (navigate) params.set("nav", "true");
 
@@ -191,8 +191,8 @@ export default function HomePageClient() {
             setError(null);
 
             const params = new URLSearchParams({
-              departure: currentLocation.locid,
-              destination: target.locid,
+              departure: currentLocation.id,
+              destination: target.id,
               rainy: rainyMode.toString(),
             });
 

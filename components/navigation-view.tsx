@@ -60,8 +60,8 @@ export function NavigationView({
         setError(null);
 
         const params = new URLSearchParams({
-          departure: from.locid,
-          destination: to.locid,
+          departure: from.id,
+          destination: to.id,
           rainy: rainyMode.toString(),
         });
 
@@ -91,7 +91,7 @@ export function NavigationView({
               err instanceof Error
                 ? err.message
                 : "Attempted to log error but err is not instance of Error"
-            )}&from=${from.locid}&to=${to.locid}%rainy=${rainyMode}`
+            )}&from=${from.id}&to=${to.id}%rainy=${rainyMode}`
           );
         };
         callLogError();
@@ -104,7 +104,7 @@ export function NavigationView({
     };
 
     fetchRoute();
-  }, [from.locid, to.locid, rainyMode]);
+  }, [from.id, to.id, rainyMode]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -217,7 +217,7 @@ export function NavigationView({
           <p className="mb-6 text-sm font-mono text-muted-foreground">
             {error}
             <br />
-            {`[${from.locid}-${to.locid}, ${rainyMode}]`}
+            {`[${from.id}-${to.id}, ${rainyMode}]`}
           </p>
           <button
             onClick={onBack}
@@ -382,7 +382,7 @@ export function NavigationView({
                     </div>
                   </button>
 
-                  <div className="flex items-center gap-4 my-2 pl-4">
+                  <div className="flex items-center justify-center gap-4 my-2 pl-4">
                     {/* Vertical line positioned to align with center of 80px thumbnail */}
                     <div className="flex-shrink-0 w-20 flex justify-center">
                       <div className="w-0.5 h-8 bg-neutral-300 dark:bg-neutral-700" />
