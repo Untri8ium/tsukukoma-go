@@ -318,7 +318,7 @@ export function NavigationView({
             <div className="flex items-center gap-2 text-muted-foreground">
               <MessageCircleWarning className="h-4 w-4" />
               <span className="text-sm">
-                外観・入口は実際と異なる場合があります
+                景観・動線は実際と異なることがあります
               </span>
             </div>
             <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
@@ -490,7 +490,7 @@ export function NavigationView({
                 </div>
               )}
 
-              {/* Floating Toggle Button
+              {/* Floating Toggle Button */}
               <button
                 onClick={() => setMapMode(!mapMode)}
                 className="absolute bottom-9 right-6 w-12 h-12 rounded-full bg-accent text-secondary-foreground flex items-center justify-center shadow-lg shadow-accent hover:scale-105 transition-transform"
@@ -500,7 +500,7 @@ export function NavigationView({
                 ) : (
                   <MapPin className="h-6 w-6" /> // Map pin icon
                 )}
-              </button> */}
+              </button>
             </div>
 
             {/* Modal Footer with Navigation */}
