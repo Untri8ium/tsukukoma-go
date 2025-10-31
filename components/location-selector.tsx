@@ -117,11 +117,11 @@ const LOCATIONS: Location[] = [
   {
     id: "4",
     locid: "164",
-    name: "休憩所",
+    name: "藤棚休憩所",
     category: "その他",
     organizer: "",
     position: "屋外",
-    keywords: ["きゅうけいじょ", "藤棚"],
+    keywords: ["ふじだなきゅうけいじょ"],
   },
   {
     id: "5",
