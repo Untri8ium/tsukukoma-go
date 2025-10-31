@@ -318,7 +318,9 @@ export function NavigationView({
             <div className="flex items-center gap-2 text-muted-foreground">
               <MessageCircleWarning className="h-4 w-4" />
               <span className="text-sm">
-                景観・動線は実際と異なることがあります
+                景観は実際と異なります
+                <br />
+                動線は現状優先をお願いします
               </span>
             </div>
             <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
