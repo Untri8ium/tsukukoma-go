@@ -1201,6 +1201,13 @@ export function LocationSelector({
   const dep = searchParams.get("dep");
   const dest = searchParams.get("dest");
 
+  function kanaToHira(str: string) {
+    return str.replace(/[\u30a1-\u30f6]/g, function (match) {
+      var chr = match.charCodeAt(0) - 0x60;
+      return String.fromCharCode(chr);
+    });
+  }
+
   useEffect(() => {
     // Trigger both effects on mount
     if (isQr) {
@@ -1216,16 +1223,16 @@ export function LocationSelector({
 
   useEffect(() => {
     console.log(searchTerm);
-    const term = searchTerm.toLowerCase();
+    const term = kanaToHira(searchTerm.toLowerCase());
 
     const filtered = LOCATIONS.filter(
       (location) =>
-        (location.name.toLowerCase().includes(term) ||
-          location.category.toLowerCase().includes(term) ||
-          location.organizer.toLowerCase().includes(term) ||
-          location.position.toLowerCase().includes(term) ||
+        (kanaToHira(location.name.toLowerCase()).includes(term) ||
+          kanaToHira(location.category.toLowerCase()).includes(term) ||
+          kanaToHira(location.organizer.toLowerCase()).includes(term) ||
+          kanaToHira(location.position.toLowerCase()).includes(term) ||
           location.keywords.some((keyword) =>
-            keyword.toLowerCase().includes(term)
+            kanaToHira(keyword.toLowerCase()).includes(term)
           )) &&
         (departure
           ? !["m", "f", "169"].includes(location.locid)
