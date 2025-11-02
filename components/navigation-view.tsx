@@ -51,11 +51,24 @@ export function NavigationView({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [highlight, setHighlight] = useState(false);
+
   const [mapMode, setMapMode] = useState(false);
 
   useEffect(() => {
     if (zoomModalOpen) setMapMode(false);
   }, [zoomModalOpen]);
+
+  useEffect(() => {
+    // Trigger both effects on mount
+    setHighlight(true);
+
+    const timer = setTimeout(() => {
+      setHighlight(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -323,12 +336,12 @@ export function NavigationView({
                 動線は現状優先をお願いします
               </span>
             </div>
-            <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
+            {/* <div className="flex items-center gap-2 mb-4 text-blue-700 dark:text-blue-300">
               <Info className="h-4 w-4" />
               <span className="text-sm font-semibold">
                 画像をタップすると拡大表示します
               </span>
-            </div>
+            </div> */}
             {to.locid === "169" && (
               <div className="flex items-center gap-2 p-2 border border-2 rounded-md border-red-600 dark:border-red-400 text-red-600 dark:text-red-400">
                 <TriangleAlert className="h-4 w-4" />
@@ -349,16 +362,24 @@ export function NavigationView({
           {routeSteps.map(
             (step, index) =>
               index < routeSteps.length - 1 && (
+                // Combined component with overlay snippet added
                 <div
                   key={step.id}
                   ref={(el) => {
                     stepRefs.current[index] = el;
                   }}
+                  className="relative" // make parent relative for absolute overlay
                 >
                   {/* Step Card */}
                   <button
                     onClick={() => openZoomModal(index)}
-                    className="flex gap-4 mb-2 px-4 h-24 items-center w-full text-left bg-card border-2 border-border/60 rounded-lg hover:border-primary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={` ${
+                      index === 0
+                        ? `transition-all duration-300 ${
+                            highlight ? "border-blue-500" : ""
+                          }`
+                        : "border-border/70"
+                    } flex gap-4 mb-2 px-4 h-24 items-center w-full text-left bg-card border-2 rounded-lg hover:border-primary/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary`}
                   >
                     {/* Step Image */}
                     {index !== 0 && (
@@ -384,24 +405,23 @@ export function NavigationView({
                           {step.title}
                         </h3>
                       )}
-                      {/* <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p> */}
                     </div>
                   </button>
 
+                  {/* Overlay bubble */}
+                  {index === 0 && (
+                    <div className="absolute -bottom-2 right-0 mt-0 z-10 bg-blue-500 text-white rounded-lg py-2 px-3 shadow-lg animate-fade-in-out">
+                      タップすると拡大表示します
+                      <div className="absolute top-0 left-4 w-2 h-2 bg-blue-500 rotate-45 -translate-y-1" />
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-center gap-4 my-2 pl-4">
-                    {/* Vertical line positioned to align with center of 80px thumbnail */}
                     <div className="flex-shrink-0 w-full flex justify-center">
                       <div className="w-0.5 h-8 bg-neutral-300 dark:bg-neutral-700" />
                     </div>
 
-                    {/* Path description and notice badge aligned with step content */}
                     <div className="flex-1 flex items-center gap-3">
-                      {/* <div className="flex items-center gap-2 text-sm dark:text-indigo-300 font-medium">
-                      <Navigation className="h-4 w-4" />
-                      {step.connector}
-                    </div> */}
-
-                      {/* Notice badge vertically aligned with path description */}
                       {step.notice && (
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium border ${getNoticeColor(
