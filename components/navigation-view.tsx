@@ -419,7 +419,7 @@ export function NavigationView({
         </div>
 
         {/* Arrival Message */}
-        <div className="p-4 bg-accent text-accent-foreground rounded-lg text-center">
+        <div className="p-4 bg-blue-600 text-accent-foreground rounded-lg text-center">
           <div className="text-lg font-semibold">到着</div>
           <div className="text-sm opacity-90 mt-1">{to.name}</div>
         </div>
